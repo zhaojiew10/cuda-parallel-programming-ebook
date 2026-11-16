@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1200" height="930" viewBox="0 0 1200 930" role="img" aria-labelledby="title-coalesced-aos-soa desc-coalesced-aos-soa">
+<title id="title-coalesced-aos-soa">合并访问与 AoS / SoA：看整个 Warp 的地址集合</title>
+<desc id="desc-coalesced-aos-soa">上半部分展示相邻通道访问连续地址，下半部分对比只读取粒子 x 字段时 AoS 的跨步地址与 SoA 的同字段连续地址。</desc>
+<defs>
+<marker id="arrow-slate" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#5B6B7C"/></marker>
+<marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FED"/></marker>
+<marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2E8B68"/></marker>
+<marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D98818"/></marker>
+<marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C94F55"/></marker>
+<marker id="arrow-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#7556B3"/></marker>
+<marker id="arrow-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#168C8C"/></marker>
+</defs>
+<rect width="1200" height="930" fill="#F6F8FC"/>
+<rect width="1200" height="8" fill="#2F6FED"/>
+<text x="60" y="46" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="700" fill="#2F6FED" text-anchor="start" >第 14 章 · 全局内存合并访问与数据布局</text>
+<text x="60" y="92" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="32" font-weight="700" fill="#17324D" text-anchor="start" >合并访问与 AoS / SoA：看整个 Warp 的地址集合</text>
+<text x="60" y="126" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="16" font-weight="400" fill="#5B6B7C" text-anchor="start" >相邻线程连续访问通常更容易组织内存事务；布局选择取决于真实访问路径</text>
+<rect x="60" y="156" width="1080" height="318" rx="14" fill="#FFFFFF" stroke="#CBD6E2" stroke-width="1.4" />
+<text x="86" y="188" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="17" font-weight="700" fill="#17324D" text-anchor="start" >连续地址映射（局部画出 Warp 中 8 个相邻 Lane）</text>
+<rect x="884" y="172" width="222" height="32" rx="16" fill="#EAF1FF" stroke="none" stroke-width="0" />
+<text x="995.0" y="194" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="13" font-weight="600" fill="#2F6FED" text-anchor="middle" >index = 块起点 + Lane</text>
+<rect x="161" y="232" width="88" height="48" rx="5" fill="#EAF1FF" stroke="#CBD6E2" stroke-width="1" />
+<text x="205.0" y="260.55" font-family="Consolas,'Liberation Mono',monospace" font-size="13" font-weight="600" fill="#2F6FED" text-anchor="middle" >Lane 0</text>
+<line x1="205" y1="280" x2="205" y2="342" stroke="#2F6FED" stroke-width="1.7" stroke-linecap="round" marker-end="url(#arrow-blue)"/>
+<rect x="150" y="350" width="110" height="58" rx="5" fill="#E8F5EE" stroke="#CBD6E2" stroke-width="1" />
+<text x="205.0" y="383.2" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#2E8B68" text-anchor="middle" >a[index+0]</text>
+<rect x="271" y="232" width="88" height="48" rx="5" fill="#EAF1FF" stroke="#CBD6E2" stroke-width="1" />
+<text x="315.0" y="260.55" font-family="Consolas,'Liberation Mono',monospace" font-size="13" font-weight="600" fill="#2F6FED" text-anchor="middle" >Lane 1</text>
+<line x1="315" y1="280" x2="315" y2="342" stroke="#2F6FED" stroke-width="1.7" stroke-linecap="round" marker-end="url(#arrow-blue)"/>
+<rect x="260" y="350" width="110" height="58" rx="5" fill="#E8F5EE" stroke="#CBD6E2" stroke-width="1" />
+<text x="315.0" y="383.2" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#2E8B68" text-anchor="middle" >a[index+1]</text>
+<rect x="381" y="232" width="88" height="48" rx="5" fill="#EAF1FF" stroke="#CBD6E2" stroke-width="1" />
+<text x="425.0" y="260.55" font-family="Consolas,'Liberation Mono',monospace" font-size="13" font-weight="600" fill="#2F6FED" text-anchor="middle" >Lane 2</text>
+<line x1="425" y1="280" x2="425" y2="342" stroke="#2F6FED" stroke-width="1.7" stroke-linecap="round" marker-end="url(#arrow-blue)"/>
+<rect x="370" y="350" width="110" height="58" rx="5" fill="#E8F5EE" stroke="#CBD6E2" stroke-width="1" />
+<text x="425.0" y="383.2" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#2E8B68" text-anchor="middle" >a[index+2]</text>
+<rect x="491" y="232" width="88" height="48" rx="5" fill="#EAF1FF" stroke="#CBD6E2" stroke-width="1" />
+<text x="535.0" y="260.55" font-family="Consolas,'Liberation Mono',monospace" font-size="13" font-weight="600" fill="#2F6FED" text-anchor="middle" >Lane 3</text>
+<line x1="535" y1="280" x2="535" y2="342" stroke="#2F6FED" stroke-width="1.7" stroke-linecap="round" marker-end="url(#arrow-blue)"/>
+<rect x="480" y="350" width="110" height="58" rx="5" fill="#E8F5EE" stroke="#CBD6E2" stroke-width="1" />
+<text x="535.0" y="383.2" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#2E8B68" text-anchor="middle" >a[index+3]</text>
+<rect x="601" y="232" width="88" height="48" rx="5" fill="#EAF1FF" stroke="#CBD6E2" stroke-width="1" />
+<text x="645.0" y="260.55" font-family="Consolas,'Liberation Mono',monospace" font-size="13" font-weight="600" fill="#2F6FED" text-anchor="middle" >Lane 4</text>
+<line x1="645" y1="280" x2="645" y2="342" stroke="#2F6FED" stroke-width="1.7" stroke-linecap="round" marker-end="url(#arrow-blue)"/>
+<rect x="590" y="350" width="110" height="58" rx="5" fill="#E8F5EE" stroke="#CBD6E2" stroke-width="1" />
+<text x="645.0" y="383.2" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#2E8B68" text-anchor="middle" >a[index+4]</text>
+<rect x="711" y="232" width="88" height="48" rx="5" fill="#EAF1FF" stroke="#CBD6E2" stroke-width="1" />
+<text x="755.0" y="260.55" font-family="Consolas,'Liberation Mono',monospace" font-size="13" font-weight="600" fill="#2F6FED" text-anchor="middle" >Lane 5</text>
+<line x1="755" y1="280" x2="755" y2="342" stroke="#2F6FED" stroke-width="1.7" stroke-linecap="round" marker-end="url(#arrow-blue)"/>
+<rect x="700" y="350" width="110" height="58" rx="5" fill="#E8F5EE" stroke="#CBD6E2" stroke-width="1" />
+<text x="755.0" y="383.2" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#2E8B68" text-anchor="middle" >a[index+5]</text>
+<rect x="821" y="232" width="88" height="48" rx="5" fill="#EAF1FF" stroke="#CBD6E2" stroke-width="1" />
+<text x="865.0" y="260.55" font-family="Consolas,'Liberation Mono',monospace" font-size="13" font-weight="600" fill="#2F6FED" text-anchor="middle" >Lane 6</text>
+<line x1="865" y1="280" x2="865" y2="342" stroke="#2F6FED" stroke-width="1.7" stroke-linecap="round" marker-end="url(#arrow-blue)"/>
+<rect x="810" y="350" width="110" height="58" rx="5" fill="#E8F5EE" stroke="#CBD6E2" stroke-width="1" />
+<text x="865.0" y="383.2" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#2E8B68" text-anchor="middle" >a[index+6]</text>
+<rect x="931" y="232" width="88" height="48" rx="5" fill="#EAF1FF" stroke="#CBD6E2" stroke-width="1" />
+<text x="975.0" y="260.55" font-family="Consolas,'Liberation Mono',monospace" font-size="13" font-weight="600" fill="#2F6FED" text-anchor="middle" >Lane 7</text>
+<line x1="975" y1="280" x2="975" y2="342" stroke="#2F6FED" stroke-width="1.7" stroke-linecap="round" marker-end="url(#arrow-blue)"/>
+<rect x="920" y="350" width="110" height="58" rx="5" fill="#E8F5EE" stroke="#CBD6E2" stroke-width="1" />
+<text x="975.0" y="383.2" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#2E8B68" text-anchor="middle" >a[index+7]</text>
+<rect x="140" y="342" width="890" height="74" rx="10" fill="none" stroke="#2E8B68" stroke-width="2" />
+<text x="585" y="444" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="16" font-weight="700" fill="#2E8B68" text-anchor="middle" >相邻 Lane → 连续下标 → 连续地址区间</text>
+<rect x="60" y="506" width="520" height="306" rx="14" fill="#FFFFFF" stroke="#CBD6E2" stroke-width="1.4" />
+<rect x="82" y="526" width="230" height="32" rx="16" fill="#FFF3DE" stroke="none" stroke-width="0" />
+<text x="197.0" y="548" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="15" font-weight="600" fill="#D98818" text-anchor="middle" >AoS：结构体数组</text>
+<text x="558" y="548" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="13" font-weight="400" fill="#5B6B7C" text-anchor="end" >只读取 x 字段</text>
+<rect x="80" y="580" width="70" height="38" rx="5" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="115.0" y="603.55" font-family="Consolas,'Liberation Mono',monospace" font-size="13" font-weight="600" fill="#5B6B7C" text-anchor="middle" >t0</text>
+<line x1="115" y1="618" x2="115" y2="664" stroke="#D98818" stroke-width="1.7" stroke-linecap="round" marker-end="url(#arrow-orange)"/>
+<rect x="230" y="580" width="70" height="38" rx="5" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="265.0" y="603.55" font-family="Consolas,'Liberation Mono',monospace" font-size="13" font-weight="600" fill="#5B6B7C" text-anchor="middle" >t1</text>
+<line x1="265" y1="618" x2="265" y2="664" stroke="#D98818" stroke-width="1.7" stroke-linecap="round" marker-end="url(#arrow-orange)"/>
+<rect x="380" y="580" width="70" height="38" rx="5" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="415.0" y="603.55" font-family="Consolas,'Liberation Mono',monospace" font-size="13" font-weight="600" fill="#5B6B7C" text-anchor="middle" >t2</text>
+<line x1="415" y1="618" x2="415" y2="664" stroke="#D98818" stroke-width="1.7" stroke-linecap="round" marker-end="url(#arrow-orange)"/>
+<rect x="90" y="672" width="50" height="52" rx="5" fill="#FFF3DE" stroke="#CBD6E2" stroke-width="1" />
+<text x="115.0" y="702.55" font-family="Consolas,'Liberation Mono',monospace" font-size="13" font-weight="600" fill="#D98818" text-anchor="middle" >x0</text>
+<rect x="140" y="672" width="50" height="52" rx="5" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="165.0" y="702.55" font-family="Consolas,'Liberation Mono',monospace" font-size="13" font-weight="600" fill="#5B6B7C" text-anchor="middle" >y0</text>
+<rect x="190" y="672" width="50" height="52" rx="5" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="215.0" y="702.55" font-family="Consolas,'Liberation Mono',monospace" font-size="13" font-weight="600" fill="#5B6B7C" text-anchor="middle" >z0</text>
+<rect x="240" y="672" width="50" height="52" rx="5" fill="#FFF3DE" stroke="#CBD6E2" stroke-width="1" />
+<text x="265.0" y="702.55" font-family="Consolas,'Liberation Mono',monospace" font-size="13" font-weight="600" fill="#D98818" text-anchor="middle" >x1</text>
+<rect x="290" y="672" width="50" height="52" rx="5" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="315.0" y="702.55" font-family="Consolas,'Liberation Mono',monospace" font-size="13" font-weight="600" fill="#5B6B7C" text-anchor="middle" >y1</text>
+<rect x="340" y="672" width="50" height="52" rx="5" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="365.0" y="702.55" font-family="Consolas,'Liberation Mono',monospace" font-size="13" font-weight="600" fill="#5B6B7C" text-anchor="middle" >z1</text>
+<rect x="390" y="672" width="50" height="52" rx="5" fill="#FFF3DE" stroke="#CBD6E2" stroke-width="1" />
+<text x="415.0" y="702.55" font-family="Consolas,'Liberation Mono',monospace" font-size="13" font-weight="600" fill="#D98818" text-anchor="middle" >x2</text>
+<rect x="440" y="672" width="50" height="52" rx="5" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="465.0" y="702.55" font-family="Consolas,'Liberation Mono',monospace" font-size="13" font-weight="600" fill="#5B6B7C" text-anchor="middle" >y2</text>
+<rect x="490" y="672" width="50" height="52" rx="5" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="515.0" y="702.55" font-family="Consolas,'Liberation Mono',monospace" font-size="13" font-weight="600" fill="#5B6B7C" text-anchor="middle" >z2</text>
+<text x="90" y="758" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="400" fill="#5B6B7C" text-anchor="start" >x0 · y0 · z0 · x1 · y1 · z1 · x2 …</text>
+<text x="90" y="786" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="700" fill="#D98818" text-anchor="start" >相邻线程的 x 被其他字段隔开</text>
+<rect x="620" y="506" width="520" height="306" rx="14" fill="#FFFFFF" stroke="#CBD6E2" stroke-width="1.4" />
+<rect x="642" y="526" width="230" height="32" rx="16" fill="#E8F5EE" stroke="none" stroke-width="0" />
+<text x="757.0" y="548" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="15" font-weight="600" fill="#2E8B68" text-anchor="middle" >SoA：数组结构体</text>
+<text x="1118" y="548" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="13" font-weight="400" fill="#5B6B7C" text-anchor="end" >只读取 x 字段</text>
+<rect x="690" y="580" width="70" height="38" rx="5" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="725.0" y="603.55" font-family="Consolas,'Liberation Mono',monospace" font-size="13" font-weight="600" fill="#5B6B7C" text-anchor="middle" >t0</text>
+<line x1="725" y1="618" x2="725" y2="664" stroke="#2E8B68" stroke-width="1.7" stroke-linecap="round" marker-end="url(#arrow-green)"/>
+<rect x="683" y="672" width="84" height="52" rx="5" fill="#E8F5EE" stroke="#CBD6E2" stroke-width="1" />
+<text x="725.0" y="702.55" font-family="Consolas,'Liberation Mono',monospace" font-size="13" font-weight="600" fill="#2E8B68" text-anchor="middle" >x[0]</text>
+<rect x="780" y="580" width="70" height="38" rx="5" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="815.0" y="603.55" font-family="Consolas,'Liberation Mono',monospace" font-size="13" font-weight="600" fill="#5B6B7C" text-anchor="middle" >t1</text>
+<line x1="815" y1="618" x2="815" y2="664" stroke="#2E8B68" stroke-width="1.7" stroke-linecap="round" marker-end="url(#arrow-green)"/>
+<rect x="773" y="672" width="84" height="52" rx="5" fill="#E8F5EE" stroke="#CBD6E2" stroke-width="1" />
+<text x="815.0" y="702.55" font-family="Consolas,'Liberation Mono',monospace" font-size="13" font-weight="600" fill="#2E8B68" text-anchor="middle" >x[1]</text>
+<rect x="870" y="580" width="70" height="38" rx="5" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="905.0" y="603.55" font-family="Consolas,'Liberation Mono',monospace" font-size="13" font-weight="600" fill="#5B6B7C" text-anchor="middle" >t2</text>
+<line x1="905" y1="618" x2="905" y2="664" stroke="#2E8B68" stroke-width="1.7" stroke-linecap="round" marker-end="url(#arrow-green)"/>
+<rect x="863" y="672" width="84" height="52" rx="5" fill="#E8F5EE" stroke="#CBD6E2" stroke-width="1" />
+<text x="905.0" y="702.55" font-family="Consolas,'Liberation Mono',monospace" font-size="13" font-weight="600" fill="#2E8B68" text-anchor="middle" >x[2]</text>
+<text x="650" y="654" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="13" font-weight="700" fill="#2E8B68" text-anchor="start" >x 数组</text>
+<text x="650" y="758" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="12" font-weight="400" fill="#5B6B7C" text-anchor="start" >y 数组：</text>
+<text x="725" y="758" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="400" fill="#94A3B3" text-anchor="start" >y[0]   y[1]   y[2]   …</text>
+<text x="650" y="782" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="12" font-weight="400" fill="#5B6B7C" text-anchor="start" >z 数组：</text>
+<text x="725" y="782" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="400" fill="#94A3B3" text-anchor="start" >z[0]   z[1]   z[2]   …</text>
+<text x="970" y="786" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="700" fill="#2E8B68" text-anchor="start" >同字段分别连续存放</text>
+<text x="600" y="848" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="400" fill="#5B6B7C" text-anchor="middle" >AoS 并非固定低效；若所有字段都需要或发生缓存重用，应连同布局转换成本一起评估。</text>
+<line x1="60" y1="868" x2="1140" y2="868" stroke="#CBD6E2" stroke-width="1.3" stroke-linecap="round"/>
+<text x="60" y="903" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="700" fill="#5B6B7C" text-anchor="start" >图例</text>
+<rect x="125" y="887" width="16" height="16" rx="4" fill="#EAF1FF" stroke="none" stroke-width="0" />
+<text x="149" y="901" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="400" fill="#5B6B7C" text-anchor="start" >相邻 Lane</text>
+<rect x="288" y="887" width="16" height="16" rx="4" fill="#E8F5EE" stroke="none" stroke-width="0" />
+<text x="312" y="901" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="400" fill="#5B6B7C" text-anchor="start" >连续或被请求的 x 字段</text>
+<rect x="526" y="887" width="16" height="16" rx="4" fill="#FFF3DE" stroke="none" stroke-width="0" />
+<text x="550" y="901" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="400" fill="#5B6B7C" text-anchor="start" >AoS 中的 x 字段</text>
+<rect x="749" y="887" width="16" height="16" rx="4" fill="#EEF2F6" stroke="none" stroke-width="0" />
+<text x="773" y="901" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="400" fill="#5B6B7C" text-anchor="start" >当前阶段未读取字段</text>
+</svg>

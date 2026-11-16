@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1200" height="930" viewBox="0 0 1200 930" role="img" aria-labelledby="title-shared-bank-padding desc-shared-bank-padding">
+<title id="title-shared-bank-padding">Bank 与行尾填充：让列访问分散到不同存储体</title>
+<desc id="desc-shared-bank-padding">对比三十二乘三十二共享数组与第二维三十三的填充数组，说明固定列访问如何从同一 Bank 的不同地址变为分散 Bank，并区分同地址广播。</desc>
+<defs>
+<marker id="arrow-slate" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#5B6B7C"/></marker>
+<marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FED"/></marker>
+<marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2E8B68"/></marker>
+<marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D98818"/></marker>
+<marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C94F55"/></marker>
+<marker id="arrow-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#7556B3"/></marker>
+<marker id="arrow-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#168C8C"/></marker>
+</defs>
+<rect width="1200" height="930" fill="#F6F8FC"/>
+<rect width="1200" height="8" fill="#2F6FED"/>
+<text x="60" y="46" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="700" fill="#2F6FED" text-anchor="start" >第 16 章 · 共享内存、Bank 与二维访问</text>
+<text x="60" y="92" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="32" font-weight="700" fill="#17324D" text-anchor="start" >Bank 与行尾填充：让列访问分散到不同存储体</text>
+<text x="60" y="126" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="16" font-weight="400" fill="#5B6B7C" text-anchor="start" >课程示例按 32 个 Bank、32 位数据计算：bank = 线性字地址 mod 32</text>
+<rect x="60" y="154" width="1080" height="70" rx="14" fill="#EAF1FF" stroke="#2F6FED" stroke-width="1.4" />
+<text x="600" y="184" font-family="Consolas,'Liberation Mono',monospace" font-size="19" font-weight="700" fill="#2F6FED" text-anchor="middle" >bank(r, x) = (r × 物理行宽 + x) mod 32</text>
+<text x="600" y="210" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="13" font-weight="400" fill="#5B6B7C" text-anchor="middle" >下图仅画每行局部 4 列，固定访问第 x = 2 列</text>
+<rect x="60" y="248" width="520" height="512" rx="14" fill="#FFFFFF" stroke="#CBD6E2" stroke-width="1.4" />
+<rect x="82" y="268" width="220" height="32" rx="16" fill="#FDECEE" stroke="none" stroke-width="0" />
+<text x="192.0" y="290" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="16" font-weight="600" fill="#C94F55" text-anchor="middle" >data[32][32]</text>
+<text x="556" y="290" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="13" font-weight="600" fill="#5B6B7C" text-anchor="end" >未填充</text>
+<text x="84" y="327" font-family="Consolas,'Liberation Mono',monospace" font-size="14" font-weight="600" fill="#17324D" text-anchor="start" >bank = (r × 32 + 2) mod 32</text>
+<rect x="100" y="350" width="85" height="42" rx="4" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="142.5" y="375.0" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#5B6B7C" text-anchor="middle" >(0,0)</text>
+<rect x="185" y="350" width="85" height="42" rx="4" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="227.5" y="375.0" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#5B6B7C" text-anchor="middle" >(0,1)</text>
+<rect x="270" y="350" width="85" height="42" rx="4" fill="#FDECEE" stroke="#CBD6E2" stroke-width="1" />
+<text x="312.5" y="375.0" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#C94F55" text-anchor="middle" >(0,2)</text>
+<rect x="355" y="350" width="85" height="42" rx="4" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="397.5" y="375.0" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#5B6B7C" text-anchor="middle" >(0,3)</text>
+<path d="M 312.5 392 C 312.5 408, 292.5 620, 292.5 646" fill="none" stroke="#C94F55" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-red)"/>
+<rect x="100" y="412" width="85" height="42" rx="4" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="142.5" y="437.0" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#5B6B7C" text-anchor="middle" >(1,0)</text>
+<rect x="185" y="412" width="85" height="42" rx="4" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="227.5" y="437.0" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#5B6B7C" text-anchor="middle" >(1,1)</text>
+<rect x="270" y="412" width="85" height="42" rx="4" fill="#FDECEE" stroke="#CBD6E2" stroke-width="1" />
+<text x="312.5" y="437.0" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#C94F55" text-anchor="middle" >(1,2)</text>
+<rect x="355" y="412" width="85" height="42" rx="4" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="397.5" y="437.0" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#5B6B7C" text-anchor="middle" >(1,3)</text>
+<path d="M 312.5 454 C 312.5 470, 292.5 620, 292.5 646" fill="none" stroke="#C94F55" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-red)"/>
+<rect x="100" y="474" width="85" height="42" rx="4" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="142.5" y="499.0" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#5B6B7C" text-anchor="middle" >(2,0)</text>
+<rect x="185" y="474" width="85" height="42" rx="4" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="227.5" y="499.0" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#5B6B7C" text-anchor="middle" >(2,1)</text>
+<rect x="270" y="474" width="85" height="42" rx="4" fill="#FDECEE" stroke="#CBD6E2" stroke-width="1" />
+<text x="312.5" y="499.0" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#C94F55" text-anchor="middle" >(2,2)</text>
+<rect x="355" y="474" width="85" height="42" rx="4" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="397.5" y="499.0" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#5B6B7C" text-anchor="middle" >(2,3)</text>
+<path d="M 312.5 516 C 312.5 532, 292.5 620, 292.5 646" fill="none" stroke="#C94F55" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-red)"/>
+<rect x="100" y="536" width="85" height="42" rx="4" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="142.5" y="561.0" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#5B6B7C" text-anchor="middle" >(3,0)</text>
+<rect x="185" y="536" width="85" height="42" rx="4" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="227.5" y="561.0" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#5B6B7C" text-anchor="middle" >(3,1)</text>
+<rect x="270" y="536" width="85" height="42" rx="4" fill="#FDECEE" stroke="#CBD6E2" stroke-width="1" />
+<text x="312.5" y="561.0" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#C94F55" text-anchor="middle" >(3,2)</text>
+<rect x="355" y="536" width="85" height="42" rx="4" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="397.5" y="561.0" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#5B6B7C" text-anchor="middle" >(3,3)</text>
+<path d="M 312.5 578 C 312.5 594, 292.5 620, 292.5 646" fill="none" stroke="#C94F55" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-red)"/>
+<text x="84" y="624" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="13" font-weight="700" fill="#5B6B7C" text-anchor="start" >固定列访问的 Bank 去向</text>
+<rect x="250" y="646" width="85" height="48" rx="4" fill="#FDECEE" stroke="#CBD6E2" stroke-width="1" />
+<text x="292.5" y="674.0" font-family="Consolas,'Liberation Mono',monospace" font-size="13" font-weight="600" fill="#C94F55" text-anchor="middle" >Bank 2</text>
+<text x="320" y="724" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="700" fill="#C94F55" text-anchor="middle" >不同地址集中到同一 Bank</text>
+<rect x="620" y="248" width="520" height="512" rx="14" fill="#FFFFFF" stroke="#CBD6E2" stroke-width="1.4" />
+<rect x="642" y="268" width="220" height="32" rx="16" fill="#E8F5EE" stroke="none" stroke-width="0" />
+<text x="752.0" y="290" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="16" font-weight="600" fill="#2E8B68" text-anchor="middle" >data[32][33]</text>
+<text x="1116" y="290" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="13" font-weight="600" fill="#5B6B7C" text-anchor="end" >行尾 +1 填充</text>
+<text x="644" y="327" font-family="Consolas,'Liberation Mono',monospace" font-size="14" font-weight="600" fill="#17324D" text-anchor="start" >bank = (r × 33 + 2) mod 32</text>
+<rect x="660" y="350" width="85" height="42" rx="4" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="702.5" y="375.0" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#5B6B7C" text-anchor="middle" >(0,0)</text>
+<rect x="745" y="350" width="85" height="42" rx="4" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="787.5" y="375.0" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#5B6B7C" text-anchor="middle" >(0,1)</text>
+<rect x="830" y="350" width="85" height="42" rx="4" fill="#E8F5EE" stroke="#CBD6E2" stroke-width="1" />
+<text x="872.5" y="375.0" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#2E8B68" text-anchor="middle" >(0,2)</text>
+<rect x="915" y="350" width="85" height="42" rx="4" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="957.5" y="375.0" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#5B6B7C" text-anchor="middle" >(0,3)</text>
+<path d="M 872.5 392 C 872.5 408, 682.5 620, 682.5 646" fill="none" stroke="#2E8B68" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-green)"/>
+<rect x="660" y="412" width="85" height="42" rx="4" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="702.5" y="437.0" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#5B6B7C" text-anchor="middle" >(1,0)</text>
+<rect x="745" y="412" width="85" height="42" rx="4" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="787.5" y="437.0" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#5B6B7C" text-anchor="middle" >(1,1)</text>
+<rect x="830" y="412" width="85" height="42" rx="4" fill="#E8F5EE" stroke="#CBD6E2" stroke-width="1" />
+<text x="872.5" y="437.0" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#2E8B68" text-anchor="middle" >(1,2)</text>
+<rect x="915" y="412" width="85" height="42" rx="4" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="957.5" y="437.0" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#5B6B7C" text-anchor="middle" >(1,3)</text>
+<path d="M 872.5 454 C 872.5 470, 787.5 620, 787.5 646" fill="none" stroke="#2E8B68" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-green)"/>
+<rect x="660" y="474" width="85" height="42" rx="4" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="702.5" y="499.0" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#5B6B7C" text-anchor="middle" >(2,0)</text>
+<rect x="745" y="474" width="85" height="42" rx="4" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="787.5" y="499.0" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#5B6B7C" text-anchor="middle" >(2,1)</text>
+<rect x="830" y="474" width="85" height="42" rx="4" fill="#E8F5EE" stroke="#CBD6E2" stroke-width="1" />
+<text x="872.5" y="499.0" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#2E8B68" text-anchor="middle" >(2,2)</text>
+<rect x="915" y="474" width="85" height="42" rx="4" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="957.5" y="499.0" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#5B6B7C" text-anchor="middle" >(2,3)</text>
+<path d="M 872.5 516 C 872.5 532, 892.5 620, 892.5 646" fill="none" stroke="#2E8B68" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-green)"/>
+<rect x="660" y="536" width="85" height="42" rx="4" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="702.5" y="561.0" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#5B6B7C" text-anchor="middle" >(3,0)</text>
+<rect x="745" y="536" width="85" height="42" rx="4" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="787.5" y="561.0" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#5B6B7C" text-anchor="middle" >(3,1)</text>
+<rect x="830" y="536" width="85" height="42" rx="4" fill="#E8F5EE" stroke="#CBD6E2" stroke-width="1" />
+<text x="872.5" y="561.0" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#2E8B68" text-anchor="middle" >(3,2)</text>
+<rect x="915" y="536" width="85" height="42" rx="4" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="957.5" y="561.0" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#5B6B7C" text-anchor="middle" >(3,3)</text>
+<path d="M 872.5 578 C 872.5 594, 997.5 620, 997.5 646" fill="none" stroke="#2E8B68" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-green)"/>
+<text x="644" y="624" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="13" font-weight="700" fill="#5B6B7C" text-anchor="start" >固定列访问的 Bank 去向</text>
+<rect x="640" y="646" width="85" height="48" rx="4" fill="#E8F5EE" stroke="#CBD6E2" stroke-width="1" />
+<text x="682.5" y="674.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2E8B68" text-anchor="middle" >Bank 2</text>
+<rect x="745" y="646" width="85" height="48" rx="4" fill="#E8F5EE" stroke="#CBD6E2" stroke-width="1" />
+<text x="787.5" y="674.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2E8B68" text-anchor="middle" >Bank 3</text>
+<rect x="850" y="646" width="85" height="48" rx="4" fill="#E8F5EE" stroke="#CBD6E2" stroke-width="1" />
+<text x="892.5" y="674.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2E8B68" text-anchor="middle" >Bank 4</text>
+<rect x="955" y="646" width="85" height="48" rx="4" fill="#E8F5EE" stroke="#CBD6E2" stroke-width="1" />
+<text x="997.5" y="674.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2E8B68" text-anchor="middle" >Bank 5</text>
+<text x="880" y="724" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="700" fill="#2E8B68" text-anchor="middle" >相邻行的起始 Bank 依次错开</text>
+<rect x="60" y="786" width="1080" height="54" rx="14" fill="#FFF3DE" stroke="#D98818" stroke-width="1.4" />
+<text x="600" y="810" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="15" font-weight="700" fill="#D98818" text-anchor="middle" >同 Bank 不同地址可能产生冲突；多个线程读取同一地址通常可广播，二者不要混淆。</text>
+<text x="600" y="831" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="12" font-weight="400" fill="#5B6B7C" text-anchor="middle" >填充会改变物理行宽，所有共享内存下标计算都要使用填充后的宽度。</text>
+<line x1="60" y1="868" x2="1140" y2="868" stroke="#CBD6E2" stroke-width="1.3" stroke-linecap="round"/>
+<text x="60" y="903" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="700" fill="#5B6B7C" text-anchor="start" >图例</text>
+<rect x="125" y="887" width="16" height="16" rx="4" fill="#FDECEE" stroke="none" stroke-width="0" />
+<text x="149" y="901" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="400" fill="#5B6B7C" text-anchor="start" >同 Bank 的不同地址</text>
+<rect x="363" y="887" width="16" height="16" rx="4" fill="#E8F5EE" stroke="none" stroke-width="0" />
+<text x="387" y="901" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="400" fill="#5B6B7C" text-anchor="start" >填充后分散的 Bank</text>
+<rect x="586" y="887" width="16" height="16" rx="4" fill="#EEF2F6" stroke="none" stroke-width="0" />
+<text x="610" y="901" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="400" fill="#5B6B7C" text-anchor="start" >未选中的数组元素</text>
+<rect x="764" y="887" width="16" height="16" rx="4" fill="#FFF3DE" stroke="none" stroke-width="0" />
+<text x="788" y="901" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="400" fill="#5B6B7C" text-anchor="start" >广播与冲突的区别</text>
+</svg>

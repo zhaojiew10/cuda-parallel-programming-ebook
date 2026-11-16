@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1200" height="1140" viewBox="0 0 1200 1140" role="img" aria-labelledby="title-scan-up-down desc-scan-up-down">
+<title id="title-scan-up-down">排他扫描：上扫构建部分和，下扫传播前缀</title>
+<desc id="desc-scan-up-down">以输入一到八为例，逐行展示三轮上扫、根置零和三轮下扫，最终得到排他前缀零、一、三、六、十、十五、二十一、二十八。</desc>
+<defs>
+<marker id="arrow-slate" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#5B6B7C"/></marker>
+<marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FED"/></marker>
+<marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2E8B68"/></marker>
+<marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D98818"/></marker>
+<marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C94F55"/></marker>
+<marker id="arrow-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#7556B3"/></marker>
+<marker id="arrow-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#168C8C"/></marker>
+</defs>
+<rect width="1200" height="1140" fill="#F6F8FC"/>
+<rect width="1200" height="8" fill="#2F6FED"/>
+<text x="60" y="46" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="700" fill="#2F6FED" text-anchor="start" >第 23 章 · Hillis–Steele 与工作高效排他扫描</text>
+<text x="60" y="92" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="32" font-weight="700" fill="#17324D" text-anchor="start" >排他扫描：上扫构建部分和，下扫传播前缀</text>
+<text x="60" y="126" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="16" font-weight="400" fill="#5B6B7C" text-anchor="start" >每行是一轮完成后的数组；根位置先置为加法单位元 0</text>
+<rect x="60" y="154" width="1080" height="70" rx="14" fill="#FFFFFF" stroke="#CBD6E2" stroke-width="1.4" />
+<rect x="82" y="170" width="230" height="32" rx="16" fill="#EAF1FF" stroke="none" stroke-width="0" />
+<text x="197.0" y="192" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="600" fill="#2F6FED" text-anchor="middle" >上扫：右节点 += 左节点</text>
+<rect x="342" y="170" width="190" height="32" rx="16" fill="#FFF3DE" stroke="none" stroke-width="0" />
+<text x="437.0" y="192" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="600" fill="#D98818" text-anchor="middle" >根位置置 0</text>
+<text x="560" y="192" font-family="Consolas,'Liberation Mono',monospace" font-size="14" font-weight="600" fill="#7556B3" text-anchor="start" >下扫：t = left；left = parent；right = parent + t</text>
+<rect x="60" y="244" width="1080" height="714" rx="14" fill="#FFFFFF" stroke="#CBD6E2" stroke-width="1.4" />
+<text x="78" y="292" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="16" font-weight="700" fill="#17324D" text-anchor="start" >输入</text>
+<text x="78" y="316" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="13" font-weight="400" fill="#5B6B7C" text-anchor="start" >原序列</text>
+<rect x="340" y="268" width="84" height="50" rx="7" fill="#EAF1FF" stroke="#CBD6E2" stroke-width="1.2" />
+<text x="382" y="300" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#2F6FED" text-anchor="middle" >1</text>
+<text x="382" y="261" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >0</text>
+<rect x="434" y="268" width="84" height="50" rx="7" fill="#EAF1FF" stroke="#CBD6E2" stroke-width="1.2" />
+<text x="476" y="300" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#2F6FED" text-anchor="middle" >2</text>
+<text x="476" y="261" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >1</text>
+<rect x="528" y="268" width="84" height="50" rx="7" fill="#EAF1FF" stroke="#CBD6E2" stroke-width="1.2" />
+<text x="570" y="300" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#2F6FED" text-anchor="middle" >3</text>
+<text x="570" y="261" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >2</text>
+<rect x="622" y="268" width="84" height="50" rx="7" fill="#EAF1FF" stroke="#CBD6E2" stroke-width="1.2" />
+<text x="664" y="300" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#2F6FED" text-anchor="middle" >4</text>
+<text x="664" y="261" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >3</text>
+<rect x="716" y="268" width="84" height="50" rx="7" fill="#EAF1FF" stroke="#CBD6E2" stroke-width="1.2" />
+<text x="758" y="300" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#2F6FED" text-anchor="middle" >5</text>
+<text x="758" y="261" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >4</text>
+<rect x="810" y="268" width="84" height="50" rx="7" fill="#EAF1FF" stroke="#CBD6E2" stroke-width="1.2" />
+<text x="852" y="300" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#2F6FED" text-anchor="middle" >6</text>
+<text x="852" y="261" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >5</text>
+<rect x="904" y="268" width="84" height="50" rx="7" fill="#EAF1FF" stroke="#CBD6E2" stroke-width="1.2" />
+<text x="946" y="300" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#2F6FED" text-anchor="middle" >7</text>
+<text x="946" y="261" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >6</text>
+<rect x="998" y="268" width="84" height="50" rx="7" fill="#EAF1FF" stroke="#CBD6E2" stroke-width="1.2" />
+<text x="1040" y="300" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#2F6FED" text-anchor="middle" >8</text>
+<text x="1040" y="261" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >7</text>
+<line x1="1110" y1="320" x2="1110" y2="346" stroke="#5B6B7C" stroke-width="1.7" stroke-linecap="round" marker-end="url(#arrow-slate)"/>
+<text x="78" y="376" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="16" font-weight="700" fill="#2F6FED" text-anchor="start" >上扫 1</text>
+<text x="78" y="400" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="13" font-weight="400" fill="#5B6B7C" text-anchor="start" >合并距离 1</text>
+<rect x="340" y="352" width="84" height="50" rx="7" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1.2" />
+<text x="382" y="384" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#5B6B7C" text-anchor="middle" >1</text>
+<text x="382" y="345" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >0</text>
+<rect x="434" y="352" width="84" height="50" rx="7" fill="#EAF1FF" stroke="#2F6FED" stroke-width="1.2" />
+<text x="476" y="384" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#2F6FED" text-anchor="middle" >3</text>
+<text x="476" y="345" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >1</text>
+<rect x="528" y="352" width="84" height="50" rx="7" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1.2" />
+<text x="570" y="384" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#5B6B7C" text-anchor="middle" >3</text>
+<text x="570" y="345" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >2</text>
+<rect x="622" y="352" width="84" height="50" rx="7" fill="#EAF1FF" stroke="#2F6FED" stroke-width="1.2" />
+<text x="664" y="384" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#2F6FED" text-anchor="middle" >7</text>
+<text x="664" y="345" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >3</text>
+<rect x="716" y="352" width="84" height="50" rx="7" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1.2" />
+<text x="758" y="384" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#5B6B7C" text-anchor="middle" >5</text>
+<text x="758" y="345" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >4</text>
+<rect x="810" y="352" width="84" height="50" rx="7" fill="#EAF1FF" stroke="#2F6FED" stroke-width="1.2" />
+<text x="852" y="384" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#2F6FED" text-anchor="middle" >11</text>
+<text x="852" y="345" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >5</text>
+<rect x="904" y="352" width="84" height="50" rx="7" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1.2" />
+<text x="946" y="384" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#5B6B7C" text-anchor="middle" >7</text>
+<text x="946" y="345" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >6</text>
+<rect x="998" y="352" width="84" height="50" rx="7" fill="#EAF1FF" stroke="#2F6FED" stroke-width="1.2" />
+<text x="1040" y="384" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#2F6FED" text-anchor="middle" >15</text>
+<text x="1040" y="345" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >7</text>
+<line x1="1110" y1="404" x2="1110" y2="430" stroke="#5B6B7C" stroke-width="1.7" stroke-linecap="round" marker-end="url(#arrow-slate)"/>
+<text x="78" y="460" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="16" font-weight="700" fill="#2F6FED" text-anchor="start" >上扫 2</text>
+<text x="78" y="484" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="13" font-weight="400" fill="#5B6B7C" text-anchor="start" >合并距离 2</text>
+<rect x="340" y="436" width="84" height="50" rx="7" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1.2" />
+<text x="382" y="468" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#5B6B7C" text-anchor="middle" >1</text>
+<text x="382" y="429" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >0</text>
+<rect x="434" y="436" width="84" height="50" rx="7" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1.2" />
+<text x="476" y="468" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#5B6B7C" text-anchor="middle" >3</text>
+<text x="476" y="429" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >1</text>
+<rect x="528" y="436" width="84" height="50" rx="7" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1.2" />
+<text x="570" y="468" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#5B6B7C" text-anchor="middle" >3</text>
+<text x="570" y="429" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >2</text>
+<rect x="622" y="436" width="84" height="50" rx="7" fill="#EAF1FF" stroke="#2F6FED" stroke-width="1.2" />
+<text x="664" y="468" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#2F6FED" text-anchor="middle" >10</text>
+<text x="664" y="429" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >3</text>
+<rect x="716" y="436" width="84" height="50" rx="7" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1.2" />
+<text x="758" y="468" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#5B6B7C" text-anchor="middle" >5</text>
+<text x="758" y="429" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >4</text>
+<rect x="810" y="436" width="84" height="50" rx="7" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1.2" />
+<text x="852" y="468" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#5B6B7C" text-anchor="middle" >11</text>
+<text x="852" y="429" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >5</text>
+<rect x="904" y="436" width="84" height="50" rx="7" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1.2" />
+<text x="946" y="468" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#5B6B7C" text-anchor="middle" >7</text>
+<text x="946" y="429" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >6</text>
+<rect x="998" y="436" width="84" height="50" rx="7" fill="#EAF1FF" stroke="#2F6FED" stroke-width="1.2" />
+<text x="1040" y="468" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#2F6FED" text-anchor="middle" >26</text>
+<text x="1040" y="429" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >7</text>
+<line x1="1110" y1="488" x2="1110" y2="514" stroke="#5B6B7C" stroke-width="1.7" stroke-linecap="round" marker-end="url(#arrow-slate)"/>
+<text x="78" y="544" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="16" font-weight="700" fill="#2F6FED" text-anchor="start" >上扫 3</text>
+<text x="78" y="568" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="13" font-weight="400" fill="#5B6B7C" text-anchor="start" >合并距离 4</text>
+<rect x="340" y="520" width="84" height="50" rx="7" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1.2" />
+<text x="382" y="552" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#5B6B7C" text-anchor="middle" >1</text>
+<text x="382" y="513" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >0</text>
+<rect x="434" y="520" width="84" height="50" rx="7" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1.2" />
+<text x="476" y="552" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#5B6B7C" text-anchor="middle" >3</text>
+<text x="476" y="513" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >1</text>
+<rect x="528" y="520" width="84" height="50" rx="7" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1.2" />
+<text x="570" y="552" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#5B6B7C" text-anchor="middle" >3</text>
+<text x="570" y="513" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >2</text>
+<rect x="622" y="520" width="84" height="50" rx="7" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1.2" />
+<text x="664" y="552" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#5B6B7C" text-anchor="middle" >10</text>
+<text x="664" y="513" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >3</text>
+<rect x="716" y="520" width="84" height="50" rx="7" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1.2" />
+<text x="758" y="552" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#5B6B7C" text-anchor="middle" >5</text>
+<text x="758" y="513" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >4</text>
+<rect x="810" y="520" width="84" height="50" rx="7" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1.2" />
+<text x="852" y="552" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#5B6B7C" text-anchor="middle" >11</text>
+<text x="852" y="513" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >5</text>
+<rect x="904" y="520" width="84" height="50" rx="7" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1.2" />
+<text x="946" y="552" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#5B6B7C" text-anchor="middle" >7</text>
+<text x="946" y="513" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >6</text>
+<rect x="998" y="520" width="84" height="50" rx="7" fill="#EAF1FF" stroke="#2F6FED" stroke-width="1.2" />
+<text x="1040" y="552" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#2F6FED" text-anchor="middle" >36</text>
+<text x="1040" y="513" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >7</text>
+<line x1="1110" y1="572" x2="1110" y2="598" stroke="#5B6B7C" stroke-width="1.7" stroke-linecap="round" marker-end="url(#arrow-slate)"/>
+<text x="78" y="628" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="16" font-weight="700" fill="#D98818" text-anchor="start" >根位置置 0</text>
+<text x="78" y="652" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="13" font-weight="400" fill="#5B6B7C" text-anchor="start" >加法单位元</text>
+<rect x="340" y="604" width="84" height="50" rx="7" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1.2" />
+<text x="382" y="636" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#5B6B7C" text-anchor="middle" >1</text>
+<text x="382" y="597" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >0</text>
+<rect x="434" y="604" width="84" height="50" rx="7" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1.2" />
+<text x="476" y="636" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#5B6B7C" text-anchor="middle" >3</text>
+<text x="476" y="597" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >1</text>
+<rect x="528" y="604" width="84" height="50" rx="7" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1.2" />
+<text x="570" y="636" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#5B6B7C" text-anchor="middle" >3</text>
+<text x="570" y="597" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >2</text>
+<rect x="622" y="604" width="84" height="50" rx="7" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1.2" />
+<text x="664" y="636" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#5B6B7C" text-anchor="middle" >10</text>
+<text x="664" y="597" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >3</text>
+<rect x="716" y="604" width="84" height="50" rx="7" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1.2" />
+<text x="758" y="636" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#5B6B7C" text-anchor="middle" >5</text>
+<text x="758" y="597" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >4</text>
+<rect x="810" y="604" width="84" height="50" rx="7" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1.2" />
+<text x="852" y="636" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#5B6B7C" text-anchor="middle" >11</text>
+<text x="852" y="597" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >5</text>
+<rect x="904" y="604" width="84" height="50" rx="7" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1.2" />
+<text x="946" y="636" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#5B6B7C" text-anchor="middle" >7</text>
+<text x="946" y="597" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >6</text>
+<rect x="998" y="604" width="84" height="50" rx="7" fill="#FFF3DE" stroke="#D98818" stroke-width="1.2" />
+<text x="1040" y="636" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#D98818" text-anchor="middle" >0</text>
+<text x="1040" y="597" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >7</text>
+<line x1="1110" y1="656" x2="1110" y2="682" stroke="#5B6B7C" stroke-width="1.7" stroke-linecap="round" marker-end="url(#arrow-slate)"/>
+<text x="78" y="712" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="16" font-weight="700" fill="#7556B3" text-anchor="start" >下扫 1</text>
+<text x="78" y="736" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="13" font-weight="400" fill="#5B6B7C" text-anchor="start" >传播距离 4</text>
+<rect x="340" y="688" width="84" height="50" rx="7" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1.2" />
+<text x="382" y="720" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#5B6B7C" text-anchor="middle" >1</text>
+<text x="382" y="681" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >0</text>
+<rect x="434" y="688" width="84" height="50" rx="7" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1.2" />
+<text x="476" y="720" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#5B6B7C" text-anchor="middle" >3</text>
+<text x="476" y="681" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >1</text>
+<rect x="528" y="688" width="84" height="50" rx="7" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1.2" />
+<text x="570" y="720" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#5B6B7C" text-anchor="middle" >3</text>
+<text x="570" y="681" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >2</text>
+<rect x="622" y="688" width="84" height="50" rx="7" fill="#F1ECFA" stroke="#7556B3" stroke-width="1.2" />
+<text x="664" y="720" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#7556B3" text-anchor="middle" >0</text>
+<text x="664" y="681" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >3</text>
+<rect x="716" y="688" width="84" height="50" rx="7" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1.2" />
+<text x="758" y="720" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#5B6B7C" text-anchor="middle" >5</text>
+<text x="758" y="681" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >4</text>
+<rect x="810" y="688" width="84" height="50" rx="7" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1.2" />
+<text x="852" y="720" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#5B6B7C" text-anchor="middle" >11</text>
+<text x="852" y="681" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >5</text>
+<rect x="904" y="688" width="84" height="50" rx="7" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1.2" />
+<text x="946" y="720" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#5B6B7C" text-anchor="middle" >7</text>
+<text x="946" y="681" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >6</text>
+<rect x="998" y="688" width="84" height="50" rx="7" fill="#F1ECFA" stroke="#7556B3" stroke-width="1.2" />
+<text x="1040" y="720" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#7556B3" text-anchor="middle" >10</text>
+<text x="1040" y="681" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >7</text>
+<line x1="1110" y1="740" x2="1110" y2="766" stroke="#5B6B7C" stroke-width="1.7" stroke-linecap="round" marker-end="url(#arrow-slate)"/>
+<text x="78" y="796" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="16" font-weight="700" fill="#7556B3" text-anchor="start" >下扫 2</text>
+<text x="78" y="820" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="13" font-weight="400" fill="#5B6B7C" text-anchor="start" >传播距离 2</text>
+<rect x="340" y="772" width="84" height="50" rx="7" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1.2" />
+<text x="382" y="804" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#5B6B7C" text-anchor="middle" >1</text>
+<text x="382" y="765" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >0</text>
+<rect x="434" y="772" width="84" height="50" rx="7" fill="#F1ECFA" stroke="#7556B3" stroke-width="1.2" />
+<text x="476" y="804" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#7556B3" text-anchor="middle" >0</text>
+<text x="476" y="765" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >1</text>
+<rect x="528" y="772" width="84" height="50" rx="7" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1.2" />
+<text x="570" y="804" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#5B6B7C" text-anchor="middle" >3</text>
+<text x="570" y="765" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >2</text>
+<rect x="622" y="772" width="84" height="50" rx="7" fill="#F1ECFA" stroke="#7556B3" stroke-width="1.2" />
+<text x="664" y="804" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#7556B3" text-anchor="middle" >3</text>
+<text x="664" y="765" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >3</text>
+<rect x="716" y="772" width="84" height="50" rx="7" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1.2" />
+<text x="758" y="804" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#5B6B7C" text-anchor="middle" >5</text>
+<text x="758" y="765" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >4</text>
+<rect x="810" y="772" width="84" height="50" rx="7" fill="#F1ECFA" stroke="#7556B3" stroke-width="1.2" />
+<text x="852" y="804" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#7556B3" text-anchor="middle" >10</text>
+<text x="852" y="765" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >5</text>
+<rect x="904" y="772" width="84" height="50" rx="7" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1.2" />
+<text x="946" y="804" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#5B6B7C" text-anchor="middle" >7</text>
+<text x="946" y="765" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >6</text>
+<rect x="998" y="772" width="84" height="50" rx="7" fill="#F1ECFA" stroke="#7556B3" stroke-width="1.2" />
+<text x="1040" y="804" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#7556B3" text-anchor="middle" >21</text>
+<text x="1040" y="765" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >7</text>
+<line x1="1110" y1="824" x2="1110" y2="850" stroke="#5B6B7C" stroke-width="1.7" stroke-linecap="round" marker-end="url(#arrow-slate)"/>
+<text x="78" y="880" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="16" font-weight="700" fill="#2E8B68" text-anchor="start" >下扫 3 · 完成</text>
+<text x="78" y="904" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="13" font-weight="400" fill="#5B6B7C" text-anchor="start" >传播距离 1</text>
+<rect x="340" y="856" width="84" height="50" rx="7" fill="#E8F5EE" stroke="#2E8B68" stroke-width="1.2" />
+<text x="382" y="888" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#2E8B68" text-anchor="middle" >0</text>
+<text x="382" y="849" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >0</text>
+<rect x="434" y="856" width="84" height="50" rx="7" fill="#E8F5EE" stroke="#2E8B68" stroke-width="1.2" />
+<text x="476" y="888" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#2E8B68" text-anchor="middle" >1</text>
+<text x="476" y="849" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >1</text>
+<rect x="528" y="856" width="84" height="50" rx="7" fill="#E8F5EE" stroke="#2E8B68" stroke-width="1.2" />
+<text x="570" y="888" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#2E8B68" text-anchor="middle" >3</text>
+<text x="570" y="849" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >2</text>
+<rect x="622" y="856" width="84" height="50" rx="7" fill="#E8F5EE" stroke="#2E8B68" stroke-width="1.2" />
+<text x="664" y="888" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#2E8B68" text-anchor="middle" >6</text>
+<text x="664" y="849" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >3</text>
+<rect x="716" y="856" width="84" height="50" rx="7" fill="#E8F5EE" stroke="#2E8B68" stroke-width="1.2" />
+<text x="758" y="888" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#2E8B68" text-anchor="middle" >10</text>
+<text x="758" y="849" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >4</text>
+<rect x="810" y="856" width="84" height="50" rx="7" fill="#E8F5EE" stroke="#2E8B68" stroke-width="1.2" />
+<text x="852" y="888" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#2E8B68" text-anchor="middle" >15</text>
+<text x="852" y="849" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >5</text>
+<rect x="904" y="856" width="84" height="50" rx="7" fill="#E8F5EE" stroke="#2E8B68" stroke-width="1.2" />
+<text x="946" y="888" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#2E8B68" text-anchor="middle" >21</text>
+<text x="946" y="849" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >6</text>
+<rect x="998" y="856" width="84" height="50" rx="7" fill="#E8F5EE" stroke="#2E8B68" stroke-width="1.2" />
+<text x="1040" y="888" font-family="Consolas,'Liberation Mono',monospace" font-size="17" font-weight="700" fill="#2E8B68" text-anchor="middle" >28</text>
+<text x="1040" y="849" font-family="Consolas,'Liberation Mono',monospace" font-size="10" font-weight="500" fill="#94A3B3" text-anchor="middle" >7</text>
+<rect x="60" y="984" width="1080" height="66" rx="14" fill="#E8F5EE" stroke="#2E8B68" stroke-width="1.4" />
+<text x="84" y="1012" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="15" font-weight="700" fill="#2E8B68" text-anchor="start" >排他扫描结果</text>
+<text x="280" y="1012" font-family="Consolas,'Liberation Mono',monospace" font-size="18" font-weight="700" fill="#17324D" text-anchor="start" >[0, 1, 3, 6, 10, 15, 21, 28]</text>
+<text x="84" y="1038" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="13" font-weight="400" fill="#5B6B7C" text-anchor="start" >每一轮都要保证读取旧值先于写入，并在进入下一轮前完成同步。</text>
+<line x1="60" y1="1078" x2="1140" y2="1078" stroke="#CBD6E2" stroke-width="1.3" stroke-linecap="round"/>
+<text x="60" y="1113" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="700" fill="#5B6B7C" text-anchor="start" >图例</text>
+<rect x="125" y="1097" width="16" height="16" rx="4" fill="#EAF1FF" stroke="none" stroke-width="0" />
+<text x="149" y="1111" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="400" fill="#5B6B7C" text-anchor="start" >上扫更新的节点</text>
+<rect x="288" y="1097" width="16" height="16" rx="4" fill="#FFF3DE" stroke="none" stroke-width="0" />
+<text x="312" y="1111" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="400" fill="#5B6B7C" text-anchor="start" >根位置单位元</text>
+<rect x="436" y="1097" width="16" height="16" rx="4" fill="#F1ECFA" stroke="none" stroke-width="0" />
+<text x="460" y="1111" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="400" fill="#5B6B7C" text-anchor="start" >下扫更新的节点</text>
+<rect x="599" y="1097" width="16" height="16" rx="4" fill="#E8F5EE" stroke="none" stroke-width="0" />
+<text x="623" y="1111" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="400" fill="#5B6B7C" text-anchor="start" >最终排他前缀</text>
+</svg>

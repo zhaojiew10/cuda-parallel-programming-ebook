@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1200" height="860" viewBox="0 0 1200 860" role="img" aria-labelledby="title-warp-lanes desc-warp-lanes">
+<title id="title-warp-lanes">Warp 与 Lane：先线性化，再按连续线程分组</title>
+<desc id="desc-warp-lanes">展示线程先线性化，再划分为三十二通道 Warp 的关系，并以四十二线程块说明第二个 Warp 的活跃与非活跃通道。</desc>
+<defs>
+<marker id="arrow-slate" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#5B6B7C"/></marker>
+<marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FED"/></marker>
+<marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2E8B68"/></marker>
+<marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D98818"/></marker>
+<marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C94F55"/></marker>
+<marker id="arrow-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#7556B3"/></marker>
+<marker id="arrow-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#168C8C"/></marker>
+</defs>
+<rect width="1200" height="860" fill="#F6F8FC"/>
+<rect width="1200" height="8" fill="#2F6FED"/>
+<text x="60" y="46" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="700" fill="#2F6FED" text-anchor="start" >第 8 章 · SM、线程块与 Warp/SIMT</text>
+<text x="60" y="92" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="32" font-weight="700" fill="#17324D" text-anchor="start" >Warp 与 Lane：先线性化，再按连续线程分组</text>
+<text x="60" y="126" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="16" font-weight="400" fill="#5B6B7C" text-anchor="start" >一个 Warp 不跨线程块；尾部不足一组时，剩余通道保持非活跃</text>
+<rect x="60" y="158" width="1080" height="118" rx="14" fill="#FFFFFF" stroke="#CBD6E2" stroke-width="1.4" />
+<text x="88" y="190" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="16" font-weight="700" fill="#17324D" text-anchor="start" >块内线性编号</text>
+<text x="88" y="225" font-family="Consolas,'Liberation Mono',monospace" font-size="18" font-weight="600" fill="#2F6FED" text-anchor="start" >linear_id = threadIdx.y × blockDim.x + threadIdx.x</text>
+<text x="88" y="253" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="500" fill="#5B6B7C" text-anchor="start" >warp_id = linear_id / 32    ·    lane_id = linear_id % 32</text>
+<rect x="890" y="178" width="210" height="32" rx="16" fill="#EAF1FF" stroke="none" stroke-width="0" />
+<text x="995.0" y="200" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="600" fill="#2F6FED" text-anchor="middle" >SM 按 Warp 调度</text>
+<rect x="60" y="302" width="1080" height="356" rx="14" fill="#FFFFFF" stroke="#CBD6E2" stroke-width="1.4" />
+<text x="88" y="335" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="17" font-weight="700" fill="#17324D" text-anchor="start" >示例：一个线程块含 42 个线性线程</text>
+<text x="1110" y="335" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="400" fill="#5B6B7C" text-anchor="end" >每个小格表示一个 Lane</text>
+<text x="82" y="409" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="15" font-weight="700" fill="#17324D" text-anchor="start" >Warp 0</text>
+<text x="82" y="430" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="11" font-weight="400" fill="#5B6B7C" text-anchor="start" >线程 0–31</text>
+<rect x="160" y="385" width="27" height="54" rx="5" fill="#EAF1FF" stroke="#2F6FED" stroke-width="1" />
+<text x="173.5" y="416.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2F6FED" text-anchor="middle" >0</text>
+<rect x="189" y="385" width="27" height="54" rx="5" fill="#EAF1FF" stroke="#2F6FED" stroke-width="1" />
+<text x="202.5" y="416.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2F6FED" text-anchor="middle" >1</text>
+<rect x="218" y="385" width="27" height="54" rx="5" fill="#EAF1FF" stroke="#2F6FED" stroke-width="1" />
+<text x="231.5" y="416.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2F6FED" text-anchor="middle" >2</text>
+<rect x="247" y="385" width="27" height="54" rx="5" fill="#EAF1FF" stroke="#2F6FED" stroke-width="1" />
+<text x="260.5" y="416.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2F6FED" text-anchor="middle" >3</text>
+<rect x="276" y="385" width="27" height="54" rx="5" fill="#EAF1FF" stroke="#2F6FED" stroke-width="1" />
+<text x="289.5" y="416.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2F6FED" text-anchor="middle" >4</text>
+<rect x="305" y="385" width="27" height="54" rx="5" fill="#EAF1FF" stroke="#2F6FED" stroke-width="1" />
+<text x="318.5" y="416.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2F6FED" text-anchor="middle" >5</text>
+<rect x="334" y="385" width="27" height="54" rx="5" fill="#EAF1FF" stroke="#2F6FED" stroke-width="1" />
+<text x="347.5" y="416.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2F6FED" text-anchor="middle" >6</text>
+<rect x="363" y="385" width="27" height="54" rx="5" fill="#EAF1FF" stroke="#2F6FED" stroke-width="1" />
+<text x="376.5" y="416.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2F6FED" text-anchor="middle" >7</text>
+<rect x="392" y="385" width="27" height="54" rx="5" fill="#EAF1FF" stroke="#2F6FED" stroke-width="1" />
+<text x="405.5" y="416.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2F6FED" text-anchor="middle" >8</text>
+<rect x="421" y="385" width="27" height="54" rx="5" fill="#EAF1FF" stroke="#2F6FED" stroke-width="1" />
+<text x="434.5" y="416.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2F6FED" text-anchor="middle" >9</text>
+<rect x="450" y="385" width="27" height="54" rx="5" fill="#EAF1FF" stroke="#2F6FED" stroke-width="1" />
+<text x="463.5" y="416.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2F6FED" text-anchor="middle" >10</text>
+<rect x="479" y="385" width="27" height="54" rx="5" fill="#EAF1FF" stroke="#2F6FED" stroke-width="1" />
+<text x="492.5" y="416.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2F6FED" text-anchor="middle" >11</text>
+<rect x="508" y="385" width="27" height="54" rx="5" fill="#EAF1FF" stroke="#2F6FED" stroke-width="1" />
+<text x="521.5" y="416.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2F6FED" text-anchor="middle" >12</text>
+<rect x="537" y="385" width="27" height="54" rx="5" fill="#EAF1FF" stroke="#2F6FED" stroke-width="1" />
+<text x="550.5" y="416.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2F6FED" text-anchor="middle" >13</text>
+<rect x="566" y="385" width="27" height="54" rx="5" fill="#EAF1FF" stroke="#2F6FED" stroke-width="1" />
+<text x="579.5" y="416.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2F6FED" text-anchor="middle" >14</text>
+<rect x="595" y="385" width="27" height="54" rx="5" fill="#EAF1FF" stroke="#2F6FED" stroke-width="1" />
+<text x="608.5" y="416.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2F6FED" text-anchor="middle" >15</text>
+<rect x="624" y="385" width="27" height="54" rx="5" fill="#EAF1FF" stroke="#2F6FED" stroke-width="1" />
+<text x="637.5" y="416.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2F6FED" text-anchor="middle" >16</text>
+<rect x="653" y="385" width="27" height="54" rx="5" fill="#EAF1FF" stroke="#2F6FED" stroke-width="1" />
+<text x="666.5" y="416.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2F6FED" text-anchor="middle" >17</text>
+<rect x="682" y="385" width="27" height="54" rx="5" fill="#EAF1FF" stroke="#2F6FED" stroke-width="1" />
+<text x="695.5" y="416.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2F6FED" text-anchor="middle" >18</text>
+<rect x="711" y="385" width="27" height="54" rx="5" fill="#EAF1FF" stroke="#2F6FED" stroke-width="1" />
+<text x="724.5" y="416.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2F6FED" text-anchor="middle" >19</text>
+<rect x="740" y="385" width="27" height="54" rx="5" fill="#EAF1FF" stroke="#2F6FED" stroke-width="1" />
+<text x="753.5" y="416.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2F6FED" text-anchor="middle" >20</text>
+<rect x="769" y="385" width="27" height="54" rx="5" fill="#EAF1FF" stroke="#2F6FED" stroke-width="1" />
+<text x="782.5" y="416.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2F6FED" text-anchor="middle" >21</text>
+<rect x="798" y="385" width="27" height="54" rx="5" fill="#EAF1FF" stroke="#2F6FED" stroke-width="1" />
+<text x="811.5" y="416.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2F6FED" text-anchor="middle" >22</text>
+<rect x="827" y="385" width="27" height="54" rx="5" fill="#EAF1FF" stroke="#2F6FED" stroke-width="1" />
+<text x="840.5" y="416.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2F6FED" text-anchor="middle" >23</text>
+<rect x="856" y="385" width="27" height="54" rx="5" fill="#EAF1FF" stroke="#2F6FED" stroke-width="1" />
+<text x="869.5" y="416.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2F6FED" text-anchor="middle" >24</text>
+<rect x="885" y="385" width="27" height="54" rx="5" fill="#EAF1FF" stroke="#2F6FED" stroke-width="1" />
+<text x="898.5" y="416.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2F6FED" text-anchor="middle" >25</text>
+<rect x="914" y="385" width="27" height="54" rx="5" fill="#EAF1FF" stroke="#2F6FED" stroke-width="1" />
+<text x="927.5" y="416.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2F6FED" text-anchor="middle" >26</text>
+<rect x="943" y="385" width="27" height="54" rx="5" fill="#EAF1FF" stroke="#2F6FED" stroke-width="1" />
+<text x="956.5" y="416.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2F6FED" text-anchor="middle" >27</text>
+<rect x="972" y="385" width="27" height="54" rx="5" fill="#EAF1FF" stroke="#2F6FED" stroke-width="1" />
+<text x="985.5" y="416.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2F6FED" text-anchor="middle" >28</text>
+<rect x="1001" y="385" width="27" height="54" rx="5" fill="#EAF1FF" stroke="#2F6FED" stroke-width="1" />
+<text x="1014.5" y="416.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2F6FED" text-anchor="middle" >29</text>
+<rect x="1030" y="385" width="27" height="54" rx="5" fill="#EAF1FF" stroke="#2F6FED" stroke-width="1" />
+<text x="1043.5" y="416.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2F6FED" text-anchor="middle" >30</text>
+<rect x="1059" y="385" width="27" height="54" rx="5" fill="#EAF1FF" stroke="#2F6FED" stroke-width="1" />
+<text x="1072.5" y="416.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2F6FED" text-anchor="middle" >31</text>
+<text x="1110" y="463" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="13" font-weight="700" fill="#2F6FED" text-anchor="end" >32 个活跃通道</text>
+<text x="82" y="529" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="15" font-weight="700" fill="#17324D" text-anchor="start" >Warp 1</text>
+<text x="82" y="550" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="11" font-weight="400" fill="#5B6B7C" text-anchor="start" >线程 32–41</text>
+<rect x="160" y="505" width="27" height="54" rx="5" fill="#E8F5EE" stroke="#2E8B68" stroke-width="1" />
+<text x="173.5" y="536.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2E8B68" text-anchor="middle" >0</text>
+<rect x="189" y="505" width="27" height="54" rx="5" fill="#E8F5EE" stroke="#2E8B68" stroke-width="1" />
+<text x="202.5" y="536.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2E8B68" text-anchor="middle" >1</text>
+<rect x="218" y="505" width="27" height="54" rx="5" fill="#E8F5EE" stroke="#2E8B68" stroke-width="1" />
+<text x="231.5" y="536.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2E8B68" text-anchor="middle" >2</text>
+<rect x="247" y="505" width="27" height="54" rx="5" fill="#E8F5EE" stroke="#2E8B68" stroke-width="1" />
+<text x="260.5" y="536.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2E8B68" text-anchor="middle" >3</text>
+<rect x="276" y="505" width="27" height="54" rx="5" fill="#E8F5EE" stroke="#2E8B68" stroke-width="1" />
+<text x="289.5" y="536.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2E8B68" text-anchor="middle" >4</text>
+<rect x="305" y="505" width="27" height="54" rx="5" fill="#E8F5EE" stroke="#2E8B68" stroke-width="1" />
+<text x="318.5" y="536.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2E8B68" text-anchor="middle" >5</text>
+<rect x="334" y="505" width="27" height="54" rx="5" fill="#E8F5EE" stroke="#2E8B68" stroke-width="1" />
+<text x="347.5" y="536.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2E8B68" text-anchor="middle" >6</text>
+<rect x="363" y="505" width="27" height="54" rx="5" fill="#E8F5EE" stroke="#2E8B68" stroke-width="1" />
+<text x="376.5" y="536.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2E8B68" text-anchor="middle" >7</text>
+<rect x="392" y="505" width="27" height="54" rx="5" fill="#E8F5EE" stroke="#2E8B68" stroke-width="1" />
+<text x="405.5" y="536.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2E8B68" text-anchor="middle" >8</text>
+<rect x="421" y="505" width="27" height="54" rx="5" fill="#E8F5EE" stroke="#2E8B68" stroke-width="1" />
+<text x="434.5" y="536.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#2E8B68" text-anchor="middle" >9</text>
+<rect x="450" y="505" width="27" height="54" rx="5" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="463.5" y="536.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#94A3B3" text-anchor="middle" >10</text>
+<rect x="479" y="505" width="27" height="54" rx="5" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="492.5" y="536.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#94A3B3" text-anchor="middle" >11</text>
+<rect x="508" y="505" width="27" height="54" rx="5" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="521.5" y="536.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#94A3B3" text-anchor="middle" >12</text>
+<rect x="537" y="505" width="27" height="54" rx="5" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="550.5" y="536.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#94A3B3" text-anchor="middle" >13</text>
+<rect x="566" y="505" width="27" height="54" rx="5" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="579.5" y="536.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#94A3B3" text-anchor="middle" >14</text>
+<rect x="595" y="505" width="27" height="54" rx="5" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="608.5" y="536.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#94A3B3" text-anchor="middle" >15</text>
+<rect x="624" y="505" width="27" height="54" rx="5" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="637.5" y="536.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#94A3B3" text-anchor="middle" >16</text>
+<rect x="653" y="505" width="27" height="54" rx="5" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="666.5" y="536.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#94A3B3" text-anchor="middle" >17</text>
+<rect x="682" y="505" width="27" height="54" rx="5" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="695.5" y="536.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#94A3B3" text-anchor="middle" >18</text>
+<rect x="711" y="505" width="27" height="54" rx="5" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="724.5" y="536.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#94A3B3" text-anchor="middle" >19</text>
+<rect x="740" y="505" width="27" height="54" rx="5" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="753.5" y="536.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#94A3B3" text-anchor="middle" >20</text>
+<rect x="769" y="505" width="27" height="54" rx="5" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="782.5" y="536.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#94A3B3" text-anchor="middle" >21</text>
+<rect x="798" y="505" width="27" height="54" rx="5" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="811.5" y="536.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#94A3B3" text-anchor="middle" >22</text>
+<rect x="827" y="505" width="27" height="54" rx="5" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="840.5" y="536.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#94A3B3" text-anchor="middle" >23</text>
+<rect x="856" y="505" width="27" height="54" rx="5" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="869.5" y="536.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#94A3B3" text-anchor="middle" >24</text>
+<rect x="885" y="505" width="27" height="54" rx="5" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="898.5" y="536.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#94A3B3" text-anchor="middle" >25</text>
+<rect x="914" y="505" width="27" height="54" rx="5" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="927.5" y="536.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#94A3B3" text-anchor="middle" >26</text>
+<rect x="943" y="505" width="27" height="54" rx="5" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="956.5" y="536.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#94A3B3" text-anchor="middle" >27</text>
+<rect x="972" y="505" width="27" height="54" rx="5" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="985.5" y="536.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#94A3B3" text-anchor="middle" >28</text>
+<rect x="1001" y="505" width="27" height="54" rx="5" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="1014.5" y="536.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#94A3B3" text-anchor="middle" >29</text>
+<rect x="1030" y="505" width="27" height="54" rx="5" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="1043.5" y="536.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#94A3B3" text-anchor="middle" >30</text>
+<rect x="1059" y="505" width="27" height="54" rx="5" fill="#EEF2F6" stroke="#CBD6E2" stroke-width="1" />
+<text x="1072.5" y="536.0" font-family="Consolas,'Liberation Mono',monospace" font-size="11" font-weight="600" fill="#94A3B3" text-anchor="middle" >31</text>
+<text x="1110" y="583" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="13" font-weight="700" fill="#2E8B68" text-anchor="end" >10 个活跃通道</text>
+<path d="M 100 374 L 100 362 L 600 362 L 600 380" fill="none" stroke="#2F6FED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-blue)"/>
+<path d="M 100 494 L 100 476 L 600 476 L 600 500" fill="none" stroke="#2E8B68" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-green)"/>
+<text x="120" y="474" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="13" font-weight="400" fill="#5B6B7C" text-anchor="start" >同一块内继续分组</text>
+<text x="120" y="625" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="400" fill="#5B6B7C" text-anchor="start" >Warp 1 的非活跃通道不完成有效工作；分组仍占用一个 Warp 组织单位。</text>
+<rect x="60" y="684" width="1080" height="76" rx="14" fill="#F1ECFA" stroke="#7556B3" stroke-width="1.4" />
+<text x="88" y="716" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="16" font-weight="700" fill="#7556B3" text-anchor="start" >SIMT：同一指令，线程各自保存寄存器状态并处理各自数据。</text>
+<text x="88" y="744" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="400" fill="#5B6B7C" text-anchor="start" >不要根据设备输出或观察到的先后次序推断 Warp 之间的执行顺序。</text>
+<line x1="60" y1="798" x2="1140" y2="798" stroke="#CBD6E2" stroke-width="1.3" stroke-linecap="round"/>
+<text x="60" y="833" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="700" fill="#5B6B7C" text-anchor="start" >图例</text>
+<rect x="125" y="817" width="16" height="16" rx="4" fill="#EAF1FF" stroke="none" stroke-width="0" />
+<text x="149" y="831" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="400" fill="#5B6B7C" text-anchor="start" >完整 Warp 的活跃 Lane</text>
+<rect x="423" y="817" width="16" height="16" rx="4" fill="#E8F5EE" stroke="none" stroke-width="0" />
+<text x="447" y="831" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="400" fill="#5B6B7C" text-anchor="start" >尾部 Warp 的活跃 Lane</text>
+<rect x="721" y="817" width="16" height="16" rx="4" fill="#EEF2F6" stroke="none" stroke-width="0" />
+<text x="745" y="831" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="400" fill="#5B6B7C" text-anchor="start" >非活跃 Lane</text>
+<rect x="899" y="817" width="16" height="16" rx="4" fill="#F1ECFA" stroke="none" stroke-width="0" />
+<text x="923" y="831" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="400" fill="#5B6B7C" text-anchor="start" >执行模型说明</text>
+</svg>

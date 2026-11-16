@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1200" height="930" viewBox="0 0 1200 930" role="img" aria-labelledby="title-shared-transpose desc-shared-transpose">
+<title id="title-shared-transpose">共享内存转置：连续加载，片上交换索引，连续写出</title>
+<desc id="desc-shared-transpose">用四乘四矩阵展示全局输入按行加载到带行尾填充的共享 Tile，经块内同步后交换共享索引，再按转置坐标连续写出。</desc>
+<defs>
+<marker id="arrow-slate" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#5B6B7C"/></marker>
+<marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FED"/></marker>
+<marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2E8B68"/></marker>
+<marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D98818"/></marker>
+<marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C94F55"/></marker>
+<marker id="arrow-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#7556B3"/></marker>
+<marker id="arrow-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#168C8C"/></marker>
+</defs>
+<rect width="1200" height="930" fill="#F6F8FC"/>
+<rect width="1200" height="8" fill="#2F6FED"/>
+<text x="60" y="46" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="700" fill="#2F6FED" text-anchor="start" >第 18 章 · 共享内存转置与片上数据重用</text>
+<text x="60" y="92" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="32" font-weight="700" fill="#17324D" text-anchor="start" >共享内存转置：连续加载，片上交换索引，连续写出</text>
+<text x="60" y="126" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="16" font-weight="400" fill="#5B6B7C" text-anchor="start" >全局读写按行组织；共享 Tile 负责局部转置，加载后必须同步</text>
+<rect x="50" y="158" width="300" height="490" rx="14" fill="#FFFFFF" stroke="#CBD6E2" stroke-width="1.4" />
+<rect x="70" y="178" width="260" height="32" rx="16" fill="#EAF1FF" stroke="none" stroke-width="0" />
+<text x="200.0" y="200" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="600" fill="#2F6FED" text-anchor="middle" >① 全局输入 · 按行读取</text>
+<text x="88" y="250" font-family="Consolas,'Liberation Mono',monospace" font-size="15" font-weight="700" fill="#2F6FED" text-anchor="start" >input</text>
+<rect x="88" y="276" width="56" height="56" rx="0" fill="#EAF1FF" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="116.0" y="310.72" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >a</text>
+<rect x="144" y="276" width="56" height="56" rx="0" fill="#FFF3DE" stroke="#D98818" stroke-width="1.3" />
+<text x="172.0" y="310.72" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#D98818" text-anchor="middle" >b</text>
+<rect x="200" y="276" width="56" height="56" rx="0" fill="#EAF1FF" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="228.0" y="310.72" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >c</text>
+<rect x="256" y="276" width="56" height="56" rx="0" fill="#EAF1FF" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="284.0" y="310.72" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >d</text>
+<rect x="88" y="332" width="56" height="56" rx="0" fill="#EAF1FF" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="116.0" y="366.72" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >e</text>
+<rect x="144" y="332" width="56" height="56" rx="0" fill="#EAF1FF" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="172.0" y="366.72" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >f</text>
+<rect x="200" y="332" width="56" height="56" rx="0" fill="#EAF1FF" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="228.0" y="366.72" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >g</text>
+<rect x="256" y="332" width="56" height="56" rx="0" fill="#EAF1FF" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="284.0" y="366.72" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >h</text>
+<rect x="88" y="388" width="56" height="56" rx="0" fill="#EAF1FF" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="116.0" y="422.72" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >i</text>
+<rect x="144" y="388" width="56" height="56" rx="0" fill="#EAF1FF" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="172.0" y="422.72" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >j</text>
+<rect x="200" y="388" width="56" height="56" rx="0" fill="#EAF1FF" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="228.0" y="422.72" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >k</text>
+<rect x="256" y="388" width="56" height="56" rx="0" fill="#EAF1FF" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="284.0" y="422.72" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >l</text>
+<rect x="88" y="444" width="56" height="56" rx="0" fill="#EAF1FF" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="116.0" y="478.72" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >m</text>
+<rect x="144" y="444" width="56" height="56" rx="0" fill="#EAF1FF" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="172.0" y="478.72" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >n</text>
+<rect x="200" y="444" width="56" height="56" rx="0" fill="#EAF1FF" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="228.0" y="478.72" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >o</text>
+<rect x="256" y="444" width="56" height="56" rx="0" fill="#EAF1FF" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="284.0" y="478.72" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >p</text>
+<text x="200" y="548" font-family="Consolas,'Liberation Mono',monospace" font-size="13" font-weight="500" fill="#5B6B7C" text-anchor="middle" >a b c d  →  连续行</text>
+<text x="200" y="584" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="13" font-weight="400" fill="#5B6B7C" text-anchor="middle" >全局行宽使用输入真实宽度</text>
+<rect x="430" y="158" width="340" height="490" rx="14" fill="#FFFFFF" stroke="#CBD6E2" stroke-width="1.4" />
+<rect x="450" y="178" width="300" height="32" rx="16" fill="#E6F6F4" stroke="none" stroke-width="0" />
+<text x="600.0" y="200" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="600" fill="#168C8C" text-anchor="middle" >② 共享 Tile · 片上重排</text>
+<text x="474" y="250" font-family="Consolas,'Liberation Mono',monospace" font-size="15" font-weight="700" fill="#168C8C" text-anchor="start" >tile[4][4 + 1]</text>
+<rect x="474" y="276" width="48" height="48" rx="0" fill="#E6F6F4" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="498.0" y="305.76" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >a</text>
+<rect x="522" y="276" width="48" height="48" rx="0" fill="#FFF3DE" stroke="#D98818" stroke-width="1.3" />
+<text x="546.0" y="305.76" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#D98818" text-anchor="middle" >b</text>
+<rect x="570" y="276" width="48" height="48" rx="0" fill="#E6F6F4" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="594.0" y="305.76" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >c</text>
+<rect x="618" y="276" width="48" height="48" rx="0" fill="#E6F6F4" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="642.0" y="305.76" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >d</text>
+<rect x="666" y="276" width="48" height="48" rx="0" fill="#EEF2F6" stroke="#FFFFFF" stroke-width="1" />
+<text x="690.0" y="305.76" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="11" font-weight="500" fill="#5B6B7C" text-anchor="middle" >填</text>
+<rect x="474" y="324" width="48" height="48" rx="0" fill="#E6F6F4" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="498.0" y="353.76" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >e</text>
+<rect x="522" y="324" width="48" height="48" rx="0" fill="#E6F6F4" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="546.0" y="353.76" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >f</text>
+<rect x="570" y="324" width="48" height="48" rx="0" fill="#E6F6F4" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="594.0" y="353.76" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >g</text>
+<rect x="618" y="324" width="48" height="48" rx="0" fill="#E6F6F4" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="642.0" y="353.76" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >h</text>
+<rect x="666" y="324" width="48" height="48" rx="0" fill="#EEF2F6" stroke="#FFFFFF" stroke-width="1" />
+<text x="690.0" y="353.76" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="11" font-weight="500" fill="#5B6B7C" text-anchor="middle" >填</text>
+<rect x="474" y="372" width="48" height="48" rx="0" fill="#E6F6F4" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="498.0" y="401.76" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >i</text>
+<rect x="522" y="372" width="48" height="48" rx="0" fill="#E6F6F4" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="546.0" y="401.76" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >j</text>
+<rect x="570" y="372" width="48" height="48" rx="0" fill="#E6F6F4" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="594.0" y="401.76" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >k</text>
+<rect x="618" y="372" width="48" height="48" rx="0" fill="#E6F6F4" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="642.0" y="401.76" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >l</text>
+<rect x="666" y="372" width="48" height="48" rx="0" fill="#EEF2F6" stroke="#FFFFFF" stroke-width="1" />
+<text x="690.0" y="401.76" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="11" font-weight="500" fill="#5B6B7C" text-anchor="middle" >填</text>
+<rect x="474" y="420" width="48" height="48" rx="0" fill="#E6F6F4" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="498.0" y="449.76" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >m</text>
+<rect x="522" y="420" width="48" height="48" rx="0" fill="#E6F6F4" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="546.0" y="449.76" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >n</text>
+<rect x="570" y="420" width="48" height="48" rx="0" fill="#E6F6F4" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="594.0" y="449.76" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >o</text>
+<rect x="618" y="420" width="48" height="48" rx="0" fill="#E6F6F4" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="642.0" y="449.76" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >p</text>
+<rect x="666" y="420" width="48" height="48" rx="0" fill="#EEF2F6" stroke="#FFFFFF" stroke-width="1" />
+<text x="690.0" y="449.76" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="11" font-weight="500" fill="#5B6B7C" text-anchor="middle" >填</text>
+<text x="714" y="256" font-family="Consolas,'Liberation Mono',monospace" font-size="13" font-weight="700" fill="#5B6B7C" text-anchor="middle" >+1</text>
+<path d="M 570 468 L 570 500" fill="none" stroke="#D98818" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-orange)"/>
+<rect x="490" y="504" width="224" height="32" rx="16" fill="#FFF3DE" stroke="none" stroke-width="0" />
+<text x="602.0" y="526" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="15" font-weight="600" fill="#D98818" text-anchor="middle" >__syncthreads()</text>
+<text x="600" y="566" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="13" font-weight="400" fill="#5B6B7C" text-anchor="middle" >确保所有线程完成加载</text>
+<text x="600" y="600" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="700" fill="#168C8C" text-anchor="middle" >读取：tile[tx][ty]</text>
+<rect x="840" y="158" width="310" height="490" rx="14" fill="#FFFFFF" stroke="#CBD6E2" stroke-width="1.4" />
+<rect x="860" y="178" width="270" height="32" rx="16" fill="#E8F5EE" stroke="none" stroke-width="0" />
+<text x="995.0" y="200" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="600" fill="#2E8B68" text-anchor="middle" >③ 全局输出 · 按行写出</text>
+<text x="900" y="250" font-family="Consolas,'Liberation Mono',monospace" font-size="15" font-weight="700" fill="#2E8B68" text-anchor="start" >output</text>
+<rect x="900" y="276" width="56" height="56" rx="0" fill="#E8F5EE" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="928.0" y="310.72" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >a</text>
+<rect x="956" y="276" width="56" height="56" rx="0" fill="#E8F5EE" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="984.0" y="310.72" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >e</text>
+<rect x="1012" y="276" width="56" height="56" rx="0" fill="#E8F5EE" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="1040.0" y="310.72" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >i</text>
+<rect x="1068" y="276" width="56" height="56" rx="0" fill="#E8F5EE" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="1096.0" y="310.72" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >m</text>
+<rect x="900" y="332" width="56" height="56" rx="0" fill="#FFF3DE" stroke="#D98818" stroke-width="1.3" />
+<text x="928.0" y="366.72" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#D98818" text-anchor="middle" >b</text>
+<rect x="956" y="332" width="56" height="56" rx="0" fill="#E8F5EE" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="984.0" y="366.72" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >f</text>
+<rect x="1012" y="332" width="56" height="56" rx="0" fill="#E8F5EE" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="1040.0" y="366.72" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >j</text>
+<rect x="1068" y="332" width="56" height="56" rx="0" fill="#E8F5EE" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="1096.0" y="366.72" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >n</text>
+<rect x="900" y="388" width="56" height="56" rx="0" fill="#E8F5EE" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="928.0" y="422.72" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >c</text>
+<rect x="956" y="388" width="56" height="56" rx="0" fill="#E8F5EE" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="984.0" y="422.72" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >g</text>
+<rect x="1012" y="388" width="56" height="56" rx="0" fill="#E8F5EE" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="1040.0" y="422.72" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >k</text>
+<rect x="1068" y="388" width="56" height="56" rx="0" fill="#E8F5EE" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="1096.0" y="422.72" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >o</text>
+<rect x="900" y="444" width="56" height="56" rx="0" fill="#E8F5EE" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="928.0" y="478.72" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >d</text>
+<rect x="956" y="444" width="56" height="56" rx="0" fill="#E8F5EE" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="984.0" y="478.72" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >h</text>
+<rect x="1012" y="444" width="56" height="56" rx="0" fill="#E8F5EE" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="1040.0" y="478.72" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >l</text>
+<rect x="1068" y="444" width="56" height="56" rx="0" fill="#E8F5EE" stroke="#FFFFFF" stroke-width="1.3" />
+<text x="1096.0" y="478.72" font-family="Consolas,'Liberation Mono',monospace" font-size="16" font-weight="600" fill="#17324D" text-anchor="middle" >p</text>
+<text x="976" y="548" font-family="Consolas,'Liberation Mono',monospace" font-size="13" font-weight="500" fill="#5B6B7C" text-anchor="middle" >a e i m  →  连续行</text>
+<text x="995" y="584" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="13" font-weight="400" fill="#5B6B7C" text-anchor="middle" >输出行宽使用输出真实宽度</text>
+<line x1="350" y1="352" x2="422" y2="352" stroke="#2F6FED" stroke-width="2.6" stroke-linecap="round" marker-end="url(#arrow-blue)"/>
+<text x="386" y="327" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="13" font-weight="700" fill="#2F6FED" text-anchor="middle" >按行加载</text>
+<line x1="770" y1="352" x2="832" y2="352" stroke="#2E8B68" stroke-width="2.6" stroke-linecap="round" marker-end="url(#arrow-green)"/>
+<text x="801" y="327" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="13" font-weight="700" fill="#2E8B68" text-anchor="middle" >转置写出</text>
+<rect x="60" y="680" width="1080" height="142" rx="14" fill="#FFFFFF" stroke="#CBD6E2" stroke-width="1.4" />
+<text x="84" y="711" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="700" fill="#2F6FED" text-anchor="start" >加载坐标</text>
+<text x="250" y="711" font-family="Consolas,'Liberation Mono',monospace" font-size="15" font-weight="500" fill="#17324D" text-anchor="start" >tile[ty][tx] = input[y * input_width + x]</text>
+<text x="84" y="751" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="700" fill="#2E8B68" text-anchor="start" >写出坐标</text>
+<text x="250" y="751" font-family="Consolas,'Liberation Mono',monospace" font-size="15" font-weight="500" fill="#17324D" text-anchor="start" >output[out_y * output_width + out_x] = tile[tx][ty]</text>
+<text x="84" y="793" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="400" fill="#5B6B7C" text-anchor="start" >块坐标随转置交换；非方阵分别使用输入宽高与输出宽高，并保留双向边界检查。</text>
+<text x="600" y="854" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="400" fill="#5B6B7C" text-anchor="middle" >填充改善片上列访问的 Bank 分布；全局矩阵仍使用真实行宽。</text>
+<line x1="60" y1="868" x2="1140" y2="868" stroke="#CBD6E2" stroke-width="1.3" stroke-linecap="round"/>
+<text x="60" y="903" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="700" fill="#5B6B7C" text-anchor="start" >图例</text>
+<rect x="125" y="887" width="16" height="16" rx="4" fill="#EAF1FF" stroke="none" stroke-width="0" />
+<text x="149" y="901" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="400" fill="#5B6B7C" text-anchor="start" >全局输入</text>
+<rect x="243" y="887" width="16" height="16" rx="4" fill="#E6F6F4" stroke="none" stroke-width="0" />
+<text x="267" y="901" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="400" fill="#5B6B7C" text-anchor="start" >共享 Tile 有效数据</text>
+<rect x="481" y="887" width="16" height="16" rx="4" fill="#EEF2F6" stroke="none" stroke-width="0" />
+<text x="505" y="901" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="400" fill="#5B6B7C" text-anchor="start" >行尾填充</text>
+<rect x="599" y="887" width="16" height="16" rx="4" fill="#FFF3DE" stroke="none" stroke-width="0" />
+<text x="623" y="901" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="400" fill="#5B6B7C" text-anchor="start" >同步与索引示例</text>
+<rect x="762" y="887" width="16" height="16" rx="4" fill="#E8F5EE" stroke="none" stroke-width="0" />
+<text x="786" y="901" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="400" fill="#5B6B7C" text-anchor="start" >全局输出</text>
+</svg>

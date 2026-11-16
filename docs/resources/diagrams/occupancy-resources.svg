@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-labelledby="title-occupancy-resources desc-occupancy-resources">
+<title id="title-occupancy-resources">占用率：多种资源约束共同决定驻留规模</title>
+<desc id="desc-occupancy-resources">展示寄存器、共享内存和槽位约束如何共同决定 SM 的理论驻留块数，并说明占用率与延迟隐藏的关系。</desc>
+<defs>
+<marker id="arrow-slate" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#5B6B7C"/></marker>
+<marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FED"/></marker>
+<marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2E8B68"/></marker>
+<marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D98818"/></marker>
+<marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C94F55"/></marker>
+<marker id="arrow-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#7556B3"/></marker>
+<marker id="arrow-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#168C8C"/></marker>
+</defs>
+<rect width="1200" height="900" fill="#F6F8FC"/>
+<rect width="1200" height="8" fill="#2F6FED"/>
+<text x="60" y="46" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="700" fill="#2F6FED" text-anchor="start" >第 9 章 · 资源限制、延迟隐藏与占用率</text>
+<text x="60" y="92" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="32" font-weight="700" fill="#17324D" text-anchor="start" >占用率：多种资源约束共同决定驻留规模</text>
+<text x="60" y="126" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="16" font-weight="400" fill="#5B6B7C" text-anchor="start" >最先耗尽的资源限制可驻留块数；调度器在就绪 Warp 之间切换</text>
+<rect x="60" y="160" width="340" height="192" rx="14" fill="#FFFFFF" stroke="#CBD6E2" stroke-width="1.4" />
+<rect x="82" y="180" width="170" height="32" rx="16" fill="#EAF1FF" stroke="none" stroke-width="0" />
+<text x="167.0" y="202" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="15" font-weight="600" fill="#2F6FED" text-anchor="middle" >寄存器</text>
+<text x="82" y="244" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="400" fill="#5B6B7C" text-anchor="start" >每线程与每块需求</text>
+<rect x="82" y="258" width="290" height="16" rx="8" fill="#EEF2F6" stroke="none" stroke-width="0" />
+<rect x="82" y="258" width="155" height="16" rx="8" fill="#2F6FED" stroke="none" stroke-width="0" />
+<text x="82" y="306" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="600" fill="#17324D" text-anchor="start" >寄存器文件容量</text>
+<text x="372" y="330" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="12" font-weight="400" fill="#5B6B7C" text-anchor="end" >每块需求参与资源核算</text>
+<path d="M 230 352 L 230 380 L 600 380 L 600 405" fill="none" stroke="#2F6FED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-blue)"/>
+<rect x="430" y="160" width="340" height="192" rx="14" fill="#FFFFFF" stroke="#CBD6E2" stroke-width="1.4" />
+<rect x="452" y="180" width="170" height="32" rx="16" fill="#E6F6F4" stroke="none" stroke-width="0" />
+<text x="537.0" y="202" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="15" font-weight="600" fill="#168C8C" text-anchor="middle" >共享内存</text>
+<text x="452" y="244" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="400" fill="#5B6B7C" text-anchor="start" >静态 + 动态分配</text>
+<rect x="452" y="258" width="290" height="16" rx="8" fill="#EEF2F6" stroke="none" stroke-width="0" />
+<rect x="452" y="258" width="190" height="16" rx="8" fill="#168C8C" stroke="none" stroke-width="0" />
+<text x="452" y="306" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="600" fill="#17324D" text-anchor="start" >SM 片上共享容量</text>
+<text x="742" y="330" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="12" font-weight="400" fill="#5B6B7C" text-anchor="end" >每块需求参与资源核算</text>
+<path d="M 600 352 L 600 380 L 600 380 L 600 405" fill="none" stroke="#168C8C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-teal)"/>
+<rect x="800" y="160" width="340" height="192" rx="14" fill="#FFFFFF" stroke="#CBD6E2" stroke-width="1.4" />
+<rect x="822" y="180" width="170" height="32" rx="16" fill="#F1ECFA" stroke="none" stroke-width="0" />
+<text x="907.0" y="202" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="15" font-weight="600" fill="#7556B3" text-anchor="middle" >块 / Warp 槽位</text>
+<text x="822" y="244" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="400" fill="#5B6B7C" text-anchor="start" >执行配置所需槽位</text>
+<rect x="822" y="258" width="290" height="16" rx="8" fill="#EEF2F6" stroke="none" stroke-width="0" />
+<rect x="822" y="258" width="225" height="16" rx="8" fill="#7556B3" stroke="none" stroke-width="0" />
+<text x="822" y="306" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="600" fill="#17324D" text-anchor="start" >硬件驻留上限</text>
+<text x="1112" y="330" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="12" font-weight="400" fill="#5B6B7C" text-anchor="end" >每块需求参与资源核算</text>
+<path d="M 970 352 L 970 380 L 600 380 L 600 405" fill="none" stroke="#7556B3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-purple)"/>
+<rect x="150" y="406" width="900" height="126" rx="14" fill="#E8F5EE" stroke="#2E8B68" stroke-width="1.4" />
+<text x="600" y="440" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="18" font-weight="700" fill="#2E8B68" text-anchor="middle" >理论可驻留块数 = min（各资源分别允许的块数，硬件块数上限）</text>
+<text x="600" y="478" font-family="Consolas,'Liberation Mono',monospace" font-size="18" font-weight="600" fill="#17324D" text-anchor="middle" >占用率 = 活跃 Warp 数 ÷ 硬件最大活跃 Warp 数</text>
+<text x="600" y="510" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="13" font-weight="400" fill="#5B6B7C" text-anchor="middle" >理论驻留上限还需考虑资源分配粒度</text>
+<rect x="60" y="574" width="690" height="202" rx="14" fill="#FFFFFF" stroke="#CBD6E2" stroke-width="1.4" />
+<text x="84" y="606" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="17" font-weight="700" fill="#17324D" text-anchor="start" >延迟隐藏：保留可切换的执行上下文</text>
+<rect x="84" y="628" width="92" height="32" rx="16" fill="#EEF2F6" stroke="none" stroke-width="0" />
+<text x="130.0" y="650" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="13" font-weight="600" fill="#5B6B7C" text-anchor="middle" >Warp A</text>
+<rect x="188" y="628" width="82" height="32" rx="16" fill="#FFF3DE" stroke="none" stroke-width="0" />
+<text x="229.0" y="650" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="13" font-weight="600" fill="#D98818" text-anchor="middle" >等待</text>
+<line x1="278" y1="644" x2="336" y2="644" stroke="#D98818" stroke-width="1.8" stroke-linecap="round" stroke-dasharray="5 5"/>
+<rect x="84" y="670" width="92" height="32" rx="16" fill="#EEF2F6" stroke="none" stroke-width="0" />
+<text x="130.0" y="692" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="13" font-weight="600" fill="#5B6B7C" text-anchor="middle" >Warp B</text>
+<rect x="188" y="670" width="82" height="32" rx="16" fill="#E8F5EE" stroke="none" stroke-width="0" />
+<text x="229.0" y="692" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="13" font-weight="600" fill="#2E8B68" text-anchor="middle" >就绪</text>
+<line x1="278" y1="686" x2="374" y2="674" stroke="#2E8B68" stroke-width="1.8" stroke-linecap="round" marker-end="url(#arrow-green)"/>
+<rect x="84" y="712" width="92" height="32" rx="16" fill="#EEF2F6" stroke="none" stroke-width="0" />
+<text x="130.0" y="734" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="13" font-weight="600" fill="#5B6B7C" text-anchor="middle" >Warp C</text>
+<rect x="188" y="712" width="82" height="32" rx="16" fill="#E8F5EE" stroke="none" stroke-width="0" />
+<text x="229.0" y="734" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="13" font-weight="600" fill="#2E8B68" text-anchor="middle" >就绪</text>
+<line x1="278" y1="728" x2="374" y2="674" stroke="#2E8B68" stroke-width="1.8" stroke-linecap="round" marker-end="url(#arrow-green)"/>
+<rect x="380" y="638" width="142" height="72" rx="14" fill="#EAF1FF" stroke="#2F6FED" stroke-width="1.4" />
+<text x="451" y="667" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="16" font-weight="700" fill="#2F6FED" text-anchor="middle" >Warp</text>
+<text x="451" y="692" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="16" font-weight="700" fill="#2F6FED" text-anchor="middle" >调度器</text>
+<line x1="522" y1="674" x2="592" y2="674" stroke="#2F6FED" stroke-width="2.2" stroke-linecap="round" marker-end="url(#arrow-blue)"/>
+<rect x="602" y="656" width="120" height="32" rx="16" fill="#E8F5EE" stroke="none" stroke-width="0" />
+<text x="662.0" y="678" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="600" fill="#2E8B68" text-anchor="middle" >发射指令</text>
+<rect x="780" y="574" width="360" height="202" rx="14" fill="#FFF3DE" stroke="#D98818" stroke-width="1.4" />
+<text x="806" y="608" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="18" font-weight="700" fill="#D98818" text-anchor="start" >占用率不是性能分数</text>
+<text x="806" y="646" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="400" fill="#5B6B7C" text-anchor="start" >还需结合：</text>
+<text x="806" y="676" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="15" font-weight="600" fill="#17324D" text-anchor="start" >内存访问 · 指令依赖 · 分支</text>
+<text x="806" y="706" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="400" fill="#5B6B7C" text-anchor="start" >资源压缩可能引入额外访问</text>
+<text x="806" y="738" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="400" fill="#5B6B7C" text-anchor="start" >用正确性与实测结果验证修改</text>
+<line x1="60" y1="838" x2="1140" y2="838" stroke="#CBD6E2" stroke-width="1.3" stroke-linecap="round"/>
+<text x="60" y="873" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="700" fill="#5B6B7C" text-anchor="start" >图例</text>
+<rect x="125" y="857" width="16" height="16" rx="4" fill="#EAF1FF" stroke="none" stroke-width="0" />
+<text x="149" y="871" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="400" fill="#5B6B7C" text-anchor="start" >资源容量与调度</text>
+<rect x="288" y="857" width="16" height="16" rx="4" fill="#FFF3DE" stroke="none" stroke-width="0" />
+<text x="312" y="871" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="400" fill="#5B6B7C" text-anchor="start" >等待或注意事项</text>
+<rect x="451" y="857" width="16" height="16" rx="4" fill="#E8F5EE" stroke="none" stroke-width="0" />
+<text x="475" y="871" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="400" fill="#5B6B7C" text-anchor="start" >就绪与驻留结果</text>
+<rect x="614" y="857" width="16" height="16" rx="4" fill="#F1ECFA" stroke="none" stroke-width="0" />
+<text x="638" y="871" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="14" font-weight="400" fill="#5B6B7C" text-anchor="start" >硬件槽位约束</text>
+</svg>
