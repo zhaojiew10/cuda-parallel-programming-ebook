@@ -25,6 +25,33 @@
   font-size: 0.82rem;
 }
 
+/* Warm syntax colors for light and dark code blocks. */
+[data-md-color-scheme="default"] {
+  --md-code-bg-color: #fff8e1;
+  --md-code-fg-color: #3e2723;
+  --md-code-hl-color: #ffe0b2;
+  --md-code-hl-keyword-color: #bf360c;
+  --md-code-hl-function-color: #1565c0;
+  --md-code-hl-string-color: #2e7d32;
+  --md-code-hl-number-color: #7b1fa2;
+  --md-code-hl-name-color: #00695c;
+  --md-code-hl-comment-color: #546e7a;
+  --md-code-hl-operator-color: #ad1457;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-code-bg-color: #292521;
+  --md-code-fg-color: #eceff1;
+  --md-code-hl-color: #4a3b28;
+  --md-code-hl-keyword-color: #ffb74d;
+  --md-code-hl-function-color: #82aaff;
+  --md-code-hl-string-color: #a5d6a7;
+  --md-code-hl-number-color: #ce93d8;
+  --md-code-hl-name-color: #80cbc4;
+  --md-code-hl-comment-color: #b0bec5;
+  --md-code-hl-operator-color: #f48fb1;
+}
+
 .md-typeset code {
   overflow-wrap: anywhere;
 }

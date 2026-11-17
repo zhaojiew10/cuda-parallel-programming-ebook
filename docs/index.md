@@ -1,8 +1,8 @@
 ---
-title: "CUDA 并行编程：课程精编教程"
+title: "CUDA 并行编程"
 ---
 
-# CUDA 并行编程：课程精编教程
+# CUDA 并行编程
 
 依据 **Mastering Parallel Programming with CUDA Platform** 重构的中文书面教程。原 83 讲按知识闭环合并为 **8 个部分、26 章**，通过连贯论述、代码、视频关键帧与 SVG 示意图组织内容。
 

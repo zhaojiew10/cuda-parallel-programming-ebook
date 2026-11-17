@@ -1,4 +1,4 @@
-site_name: CUDA 并行编程：课程精编教程
+site_name: CUDA 并行编程
 site_description: Mastering Parallel Programming with CUDA Platform：83 讲精编为 26 章
 docs_dir: docs
 site_dir: site
@@ -15,9 +15,20 @@ theme:
   - content.code.copy
   - content.code.annotate
   palette:
-  - scheme: default
-    primary: blue grey
-    accent: cyan
+  - media: "(prefers-color-scheme: light)"
+    scheme: default
+    primary: orange
+    accent: deep orange
+    toggle:
+      icon: material/weather-night
+      name: 切换到深色模式
+  - media: "(prefers-color-scheme: dark)"
+    scheme: slate
+    primary: orange
+    accent: deep orange
+    toggle:
+      icon: material/weather-sunny
+      name: 切换到浅色模式
 plugins:
 - search:
     lang:
