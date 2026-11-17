@@ -85,7 +85,6 @@ nav:
   - 第 25 章 从数字图像与缓冲区到 CUDA 核函数: chapters/ch25.md
   - 第 26 章 图像形成、视觉感知与 OpenCV 环境: chapters/ch26.md
 - CUDA 术语表: glossary.md
-- 编写说明与版本提示: editorial.md
 site_url: https://zhaojiew10.github.io/cuda-parallel-programming-ebook/
 repo_url: https://github.com/zhaojiew10/cuda-parallel-programming-ebook
 edit_uri: edit/main/docs/

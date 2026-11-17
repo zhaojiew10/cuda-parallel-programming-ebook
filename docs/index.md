@@ -6,9 +6,6 @@ title: "CUDA 并行编程：课程精编教程"
 
 依据 **Mastering Parallel Programming with CUDA Platform** 重构的中文书面教程。原 83 讲按知识闭环合并为 **8 个部分、26 章**，通过连贯论述、代码、视频关键帧与 SVG 示意图组织内容。
 
-!!! note "关于本书"
-    合并不等于删减：每一讲都已归入相关章节，重复内容只讲一次，相关概念放入同一案例。正文不含字幕时间戳和课堂口语；代码、设备限制与性能结论仍需结合目标 CUDA 环境验证。
-
 [开始阅读：第 1 章](chapters/ch01.md){ .md-button .md-button--primary }  [阅读与实践指南](guide.md){ .md-button }  [术语表](glossary.md){ .md-button }
 
 ## 推荐阅读路径
@@ -107,4 +104,3 @@ title: "CUDA 并行编程：课程精编教程"
 
 - [阅读与实践指南](guide.md)：了解本书结构、实践方法和校对原则。
 - [CUDA 术语表](glossary.md)：统一常见术语的中英文表达。
-- [编写说明与版本提示](editorial.md)：查看合并原则、配图来源和版本注意事项。

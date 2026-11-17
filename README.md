@@ -25,7 +25,6 @@
 - [第 1 章：并行计算、异构系统与 CUDA 学习方法](docs/chapters/ch01.md)
 - [阅读与实践指南](docs/guide.md)
 - [CUDA 术语表](docs/glossary.md)
-- [编写说明与版本提示](docs/editorial.md)
 
 ## 仓库内容
 
