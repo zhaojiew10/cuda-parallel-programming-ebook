@@ -25,23 +25,6 @@
   font-size: 0.82rem;
 }
 
-/* Muted deep-orange brand palette. */
-:root {
-  --md-primary-fg-color: #bf360c;
-  --md-primary-fg-color--light: #e64a19;
-  --md-primary-fg-color--dark: #8f2800;
-  --md-primary-bg-color: #fff;
-  --md-primary-bg-color--light: rgba(255, 255, 255, 0.7);
-  --md-accent-fg-color: #d84315;
-  --md-accent-fg-color--transparent: rgba(216, 67, 21, 0.1);
-}
-
-[data-md-color-scheme="slate"] {
-  --md-accent-fg-color: #ff8a65;
-  --md-accent-fg-color--transparent: rgba(255, 138, 101, 0.1);
-  --md-typeset-a-color: #ff8a65;
-}
-
 /* Warm syntax colors for light and dark code blocks. */
 [data-md-color-scheme="default"] {
   --md-code-bg-color: #fff8e1;
