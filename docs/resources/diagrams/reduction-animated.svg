@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="750" viewBox="0 0 1200 750" role="img" aria-labelledby="title desc">
+  <title id="title">8 个元素的树形归约动画</title>
+  <desc id="desc">输入 1 到 8。第一轮并行计算 1 加 2、3 加 4、5 加 6、7 加 8，得到 3、7、11、15；第二轮得到 10 和 26；第三轮得到 36。每轮结束后进行块内同步，再开始下一轮。</desc>
+  <defs>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FED"/>
+    </marker>
+
+    <g id="row-input">
+      <text x="50" y="136" class="row-label">输入：data[0..7]</text>
+      <g transform="translate(75 150)"><rect width="90" height="72" rx="12" class="node-input"/><text x="45" y="31" class="value">1</text><text x="45" y="56" class="index">data[0]</text></g>
+      <g transform="translate(210 150)"><rect width="90" height="72" rx="12" class="node-input"/><text x="45" y="31" class="value">2</text><text x="45" y="56" class="index">data[1]</text></g>
+      <g transform="translate(345 150)"><rect width="90" height="72" rx="12" class="node-input"/><text x="45" y="31" class="value">3</text><text x="45" y="56" class="index">data[2]</text></g>
+      <g transform="translate(480 150)"><rect width="90" height="72" rx="12" class="node-input"/><text x="45" y="31" class="value">4</text><text x="45" y="56" class="index">data[3]</text></g>
+      <g transform="translate(615 150)"><rect width="90" height="72" rx="12" class="node-input"/><text x="45" y="31" class="value">5</text><text x="45" y="56" class="index">data[4]</text></g>
+      <g transform="translate(750 150)"><rect width="90" height="72" rx="12" class="node-input"/><text x="45" y="31" class="value">6</text><text x="45" y="56" class="index">data[5]</text></g>
+      <g transform="translate(885 150)"><rect width="90" height="72" rx="12" class="node-input"/><text x="45" y="31" class="value">7</text><text x="45" y="56" class="index">data[6]</text></g>
+      <g transform="translate(1020 150)"><rect width="90" height="72" rx="12" class="node-input"/><text x="45" y="31" class="value">8</text><text x="45" y="56" class="index">data[7]</text></g>
+    </g>
+
+    <g id="row-one">
+      <text x="50" y="296" class="row-label">第 1 轮结果：4 个部分和</text>
+      <g transform="translate(142.5 310)"><rect width="90" height="72" rx="12" class="node-result"/><text x="45" y="31" class="value">3</text><text x="45" y="56" class="index">data[0]</text></g>
+      <g transform="translate(412.5 310)"><rect width="90" height="72" rx="12" class="node-result"/><text x="45" y="31" class="value">7</text><text x="45" y="56" class="index">data[2]</text></g>
+      <g transform="translate(682.5 310)"><rect width="90" height="72" rx="12" class="node-result"/><text x="45" y="31" class="value">11</text><text x="45" y="56" class="index">data[4]</text></g>
+      <g transform="translate(952.5 310)"><rect width="90" height="72" rx="12" class="node-result"/><text x="45" y="31" class="value">15</text><text x="45" y="56" class="index">data[6]</text></g>
+    </g>
+
+    <g id="row-two">
+      <text x="50" y="431" class="row-label">第 2 轮结果：2 个部分和</text>
+      <g transform="translate(277.5 445)"><rect width="90" height="72" rx="12" class="node-result"/><text x="45" y="31" class="value">10</text><text x="45" y="56" class="index">data[0]</text></g>
+      <g transform="translate(817.5 445)"><rect width="90" height="72" rx="12" class="node-result"/><text x="45" y="31" class="value">26</text><text x="45" y="56" class="index">data[4]</text></g>
+    </g>
+
+    <g id="row-three">
+      <text x="50" y="546" class="row-label">第 3 轮结果：当前块的总和</text>
+      <g transform="translate(547.5 560)"><rect width="90" height="72" rx="12" class="node-final"/><text x="45" y="31" class="value value-final">36</text><text x="45" y="56" class="index index-final">data[0]</text></g>
+    </g>
+
+    <g id="arrows-one" class="arrow-set">
+      <path pathLength="1" d="M120 222 C120 260 187.5 262 187.5 302"/>
+      <path pathLength="1" d="M255 222 C255 260 187.5 262 187.5 302"/>
+      <path pathLength="1" d="M390 222 C390 260 457.5 262 457.5 302"/>
+      <path pathLength="1" d="M525 222 C525 260 457.5 262 457.5 302"/>
+      <path pathLength="1" d="M660 222 C660 260 727.5 262 727.5 302"/>
+      <path pathLength="1" d="M795 222 C795 260 727.5 262 727.5 302"/>
+      <path pathLength="1" d="M930 222 C930 260 997.5 262 997.5 302"/>
+      <path pathLength="1" d="M1065 222 C1065 260 997.5 262 997.5 302"/>
+    </g>
+    <g id="arrows-two" class="arrow-set">
+      <path pathLength="1" d="M187.5 382 C187.5 408 322.5 407 322.5 437"/>
+      <path pathLength="1" d="M457.5 382 C457.5 408 322.5 407 322.5 437"/>
+      <path pathLength="1" d="M727.5 382 C727.5 408 862.5 407 862.5 437"/>
+      <path pathLength="1" d="M997.5 382 C997.5 408 862.5 407 862.5 437"/>
+    </g>
+    <g id="arrows-three" class="arrow-set">
+      <path pathLength="1" d="M322.5 517 C322.5 540 592.5 529 592.5 552"/>
+      <path pathLength="1" d="M862.5 517 C862.5 540 592.5 529 592.5 552"/>
+    </g>
+
+    <style>
+      text { font-family: "Noto Sans CJK SC", "Microsoft YaHei", "PingFang SC", Arial, sans-serif; }
+      .title { font-size: 30px; font-weight: 700; fill: #17324D; }
+      .subtitle { font-size: 17px; fill: #5B6B7C; }
+      .status { font-size: 17px; font-weight: 700; fill: #2F6FED; text-anchor: middle; }
+      .row-label { font-size: 16px; font-weight: 600; fill: #5B6B7C; }
+      .node-input { fill: #FFFFFF; stroke: #94A3B8; stroke-width: 1.5; }
+      .node-result { fill: #EAF1FF; stroke: #2F6FED; stroke-width: 2; }
+      .node-final { fill: #2E8B68; stroke: #237455; stroke-width: 2; }
+      .value { font-family: Consolas, "Liberation Mono", monospace; font-size: 26px; font-weight: 700; fill: #17324D; text-anchor: middle; }
+      .index { font-family: Consolas, "Liberation Mono", monospace; font-size: 13px; fill: #5B6B7C; text-anchor: middle; }
+      .value-final, .index-final { fill: #FFFFFF; }
+      .arrow-set { fill: none; stroke: #2F6FED; stroke-width: 2.4; stroke-linecap: round; marker-end: url(#arrow-blue); }
+      .past { opacity: 0.28; }
+      .past-arrows { opacity: 0.12; }
+      .footer-main { font-size: 18px; font-weight: 600; fill: #17324D; }
+      .footer-note { font-size: 15px; fill: #5B6B7C; }
+      .scene { opacity: 0; animation-duration: 14s; animation-iteration-count: infinite; animation-timing-function: steps(1, end); }
+      .scene-input { animation-name: scene-input; }
+      .scene-one { animation-name: scene-one; }
+      .scene-two { animation-name: scene-two; }
+      .scene-three { opacity: 1; animation-name: scene-three; }
+      .flow { stroke-dasharray: 1; stroke-dashoffset: 1; animation: 14s linear infinite; }
+      .flow-one { animation-name: draw-one; }
+      .flow-two { animation-name: draw-two; }
+      .flow-three { animation-name: draw-three; }
+
+      @keyframes scene-input {
+        0%, 7.99% { opacity: 1; }
+        8%, 93.99% { opacity: 0; }
+        94%, 100% { opacity: 1; }
+      }
+      @keyframes scene-one {
+        0%, 7.99% { opacity: 0; }
+        8%, 35.99% { opacity: 1; }
+        36%, 100% { opacity: 0; }
+      }
+      @keyframes scene-two {
+        0%, 35.99% { opacity: 0; }
+        36%, 59.99% { opacity: 1; }
+        60%, 100% { opacity: 0; }
+      }
+      @keyframes scene-three {
+        0%, 59.99% { opacity: 0; }
+        60%, 93.99% { opacity: 1; }
+        94%, 100% { opacity: 0; }
+      }
+      @keyframes draw-one {
+        0%, 8% { stroke-dashoffset: 1; }
+        20%, 100% { stroke-dashoffset: 0; }
+      }
+      @keyframes draw-two {
+        0%, 36% { stroke-dashoffset: 1; }
+        48%, 100% { stroke-dashoffset: 0; }
+      }
+      @keyframes draw-three {
+        0%, 60% { stroke-dashoffset: 1; }
+        72%, 100% { stroke-dashoffset: 0; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .scene { animation: none; opacity: 0; }
+        .scene-three { opacity: 1; }
+        .flow { animation: none; stroke-dashoffset: 0; }
+      }
+      @media print {
+        .scene { animation: none; opacity: 0; }
+        .scene-three { opacity: 1; }
+        .flow { animation: none; stroke-dashoffset: 0; }
+      }
+    </style>
+  </defs>
+
+  <rect width="1200" height="750" fill="#F6F8FC"/>
+  <rect width="1200" height="7" fill="#2F6FED"/>
+  <text x="50" y="53" class="title">8 个元素的树形归约</text>
+  <text x="50" y="87" class="subtitle">同一轮并行配对，轮后同步：8 → 4 → 2 → 1</text>
+  <line x1="50" y1="110" x2="1150" y2="110" stroke="#CBD6E2" stroke-width="1.3"/>
+  <rect x="910" y="30" width="240" height="50" rx="25" fill="#EAF1FF"/>
+  <rect x="50" y="674" width="1100" height="58" rx="12" fill="#FFFFFF" stroke="#CBD6E2"/>
+
+  <g class="scene scene-input">
+    <text x="1030" y="62" class="status">初始输入</text>
+    <use href="#row-input"/>
+    <text x="75" y="700" class="footer-main">准备：每个元素先写入共享数组 data。</text>
+    <text x="75" y="723" class="footer-note">8 个元素共需 7 次加法，但只有 3 层轮次依赖。</text>
+  </g>
+
+  <g class="scene scene-one">
+    <text x="1030" y="62" class="status">第 1 轮 · stride = 1</text>
+    <use href="#row-input" class="past"/>
+    <g class="flow flow-one"><use href="#arrows-one"/></g>
+    <use href="#row-one"/>
+    <text x="75" y="700" class="footer-main">并行计算：1+2=3，3+4=7，5+6=11，7+8=15</text>
+    <text x="75" y="723" class="footer-note">4 次加法完成后执行 __syncthreads()，再进入下一轮。</text>
+  </g>
+
+  <g class="scene scene-two">
+    <text x="1030" y="62" class="status">第 2 轮 · stride = 2</text>
+    <use href="#row-input" class="past"/>
+    <use href="#arrows-one" class="past-arrows"/>
+    <use href="#row-one" class="past"/>
+    <g class="flow flow-two"><use href="#arrows-two"/></g>
+    <use href="#row-two"/>
+    <text x="75" y="700" class="footer-main">并行计算：3+7=10，11+15=26</text>
+    <text x="75" y="723" class="footer-note">本轮读取第 1 轮的部分和；轮后同步，保证下一轮看到新结果。</text>
+  </g>
+
+  <g class="scene scene-three">
+    <text x="1030" y="62" class="status">第 3 轮 · stride = 4</text>
+    <use href="#row-input" class="past"/>
+    <use href="#arrows-one" class="past-arrows"/>
+    <use href="#row-one" class="past"/>
+    <use href="#arrows-two" class="past-arrows"/>
+    <use href="#row-two" class="past"/>
+    <g class="flow flow-three"><use href="#arrows-three"/></g>
+    <use href="#row-three"/>
+    <text x="75" y="700" class="footer-main">最后计算：10+26=36</text>
+    <text x="75" y="723" class="footer-note">同步后由 data[0] 写出块部分和；其他块的结果仍需继续归约。</text>
+  </g>
+</svg>
