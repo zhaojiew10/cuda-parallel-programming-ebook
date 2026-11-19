@@ -58,7 +58,7 @@ extra_javascript:
 nav:
 - 电子书首页: index.md
 - 阅读与实践指南: guide.md
-- 第一部分 · 并行计算思维与 CUDA 程序骨架:
+- 第一部分 · CUDA 入门与程序骨架:
   - 第 1 章 并行计算与 CUDA 入门: chapters/ch01.md
   - 第 2 章 配置环境并运行第一个 CUDA 程序: chapters/ch02.md
   - 第 3 章 用网格和线程块定位数据: chapters/ch03.md
@@ -66,13 +66,13 @@ nav:
   - 第 5 章 完成一次向量加法: chapters/ch05.md
   - 第 6 章 验证结果并处理 CUDA 错误: chapters/ch06.md
   - 第 7 章 计时并查询设备能力: chapters/ch07.md
-- 第二部分 · GPU 执行模型与归约优化:
+- 第二部分 · 理解 GPU 执行与归约优化:
   - 第 8 章 理解 SM、Warp 与线程执行: chapters/ch08.md
   - 第 9 章 Warp 分化与占用率: chapters/ch09.md
   - 第 10 章 实现并行归约: chapters/ch10.md
   - 第 11 章 优化归约：展开与 Shuffle: chapters/ch11.md
   - 第 12 章 在设备端启动核函数: chapters/ch12.md
-- 第三部分 · 内存层次、全局访问与片上优化:
+- 第三部分 · 优化内存访问与片上通信:
   - 第 13 章 管理主机与设备之间的数据: chapters/ch13.md
   - 第 14 章 让全局内存访问更连续: chapters/ch14.md
   - 第 15 章 实现并优化矩阵转置: chapters/ch15.md
@@ -80,14 +80,12 @@ nav:
   - 第 17 章 用共享内存完成块内归约: chapters/ch17.md
   - 第 18 章 用共享内存优化矩阵转置: chapters/ch18.md
   - 第 19 章 用 Shuffle 完成分层归约: chapters/ch19.md
-- 第四部分 · 异步流水线：流、事件与依赖:
+- 第四部分 · 综合并行实践:
   - 第 20 章 用 CUDA 流重叠传输与计算: chapters/ch20.md
   - 第 21 章 用事件管理异步依赖: chapters/ch21.md
-- 第五部分 · 数值、原子操作与扫描:
   - 第 22 章 处理浮点误差与并发更新: chapters/ch22.md
   - 第 23 章 实现块内并行扫描: chapters/ch23.md
   - 第 24 章 扩展到跨块扫描与流压缩: chapters/ch24.md
-- 第六部分 · CUDA 图像处理基础与 OpenCV 环境:
   - 第 25 章 用 CUDA 处理图像像素: chapters/ch25.md
   - 第 26 章 理解图像并配置 OpenCV 环境: chapters/ch26.md
 - CUDA 术语表: glossary.md
