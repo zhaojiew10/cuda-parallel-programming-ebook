@@ -19,47 +19,47 @@
 <rect x="60" y="156" width="1080" height="318" rx="14" fill="#FFFFFF" stroke="#CBD6E2" stroke-width="1.4" />
 <text x="86" y="188" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="17" font-weight="700" fill="#17324D" text-anchor="start" >连续地址映射（局部画出 Warp 中 8 个相邻 Lane）</text>
 <rect x="884" y="172" width="222" height="32" rx="16" fill="#EAF1FF" stroke="none" stroke-width="0" />
-<text x="995.0" y="194" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="13" font-weight="600" fill="#2F6FED" text-anchor="middle" >index = 块起点 + Lane</text>
+<text x="995.0" y="194" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="13" font-weight="600" fill="#2F6FED" text-anchor="middle" >base = Warp 起点</text>
 <rect x="161" y="232" width="88" height="48" rx="5" fill="#EAF1FF" stroke="#CBD6E2" stroke-width="1" />
 <text x="205.0" y="260.55" font-family="Consolas,'Liberation Mono',monospace" font-size="13" font-weight="600" fill="#2F6FED" text-anchor="middle" >Lane 0</text>
 <line x1="205" y1="280" x2="205" y2="342" stroke="#2F6FED" stroke-width="1.7" stroke-linecap="round" marker-end="url(#arrow-blue)"/>
 <rect x="150" y="350" width="110" height="58" rx="5" fill="#E8F5EE" stroke="#CBD6E2" stroke-width="1" />
-<text x="205.0" y="383.2" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#2E8B68" text-anchor="middle" >a[index+0]</text>
+<text x="205.0" y="383.2" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#2E8B68" text-anchor="middle" >a[base+0]</text>
 <rect x="271" y="232" width="88" height="48" rx="5" fill="#EAF1FF" stroke="#CBD6E2" stroke-width="1" />
 <text x="315.0" y="260.55" font-family="Consolas,'Liberation Mono',monospace" font-size="13" font-weight="600" fill="#2F6FED" text-anchor="middle" >Lane 1</text>
 <line x1="315" y1="280" x2="315" y2="342" stroke="#2F6FED" stroke-width="1.7" stroke-linecap="round" marker-end="url(#arrow-blue)"/>
 <rect x="260" y="350" width="110" height="58" rx="5" fill="#E8F5EE" stroke="#CBD6E2" stroke-width="1" />
-<text x="315.0" y="383.2" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#2E8B68" text-anchor="middle" >a[index+1]</text>
+<text x="315.0" y="383.2" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#2E8B68" text-anchor="middle" >a[base+1]</text>
 <rect x="381" y="232" width="88" height="48" rx="5" fill="#EAF1FF" stroke="#CBD6E2" stroke-width="1" />
 <text x="425.0" y="260.55" font-family="Consolas,'Liberation Mono',monospace" font-size="13" font-weight="600" fill="#2F6FED" text-anchor="middle" >Lane 2</text>
 <line x1="425" y1="280" x2="425" y2="342" stroke="#2F6FED" stroke-width="1.7" stroke-linecap="round" marker-end="url(#arrow-blue)"/>
 <rect x="370" y="350" width="110" height="58" rx="5" fill="#E8F5EE" stroke="#CBD6E2" stroke-width="1" />
-<text x="425.0" y="383.2" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#2E8B68" text-anchor="middle" >a[index+2]</text>
+<text x="425.0" y="383.2" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#2E8B68" text-anchor="middle" >a[base+2]</text>
 <rect x="491" y="232" width="88" height="48" rx="5" fill="#EAF1FF" stroke="#CBD6E2" stroke-width="1" />
 <text x="535.0" y="260.55" font-family="Consolas,'Liberation Mono',monospace" font-size="13" font-weight="600" fill="#2F6FED" text-anchor="middle" >Lane 3</text>
 <line x1="535" y1="280" x2="535" y2="342" stroke="#2F6FED" stroke-width="1.7" stroke-linecap="round" marker-end="url(#arrow-blue)"/>
 <rect x="480" y="350" width="110" height="58" rx="5" fill="#E8F5EE" stroke="#CBD6E2" stroke-width="1" />
-<text x="535.0" y="383.2" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#2E8B68" text-anchor="middle" >a[index+3]</text>
+<text x="535.0" y="383.2" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#2E8B68" text-anchor="middle" >a[base+3]</text>
 <rect x="601" y="232" width="88" height="48" rx="5" fill="#EAF1FF" stroke="#CBD6E2" stroke-width="1" />
 <text x="645.0" y="260.55" font-family="Consolas,'Liberation Mono',monospace" font-size="13" font-weight="600" fill="#2F6FED" text-anchor="middle" >Lane 4</text>
 <line x1="645" y1="280" x2="645" y2="342" stroke="#2F6FED" stroke-width="1.7" stroke-linecap="round" marker-end="url(#arrow-blue)"/>
 <rect x="590" y="350" width="110" height="58" rx="5" fill="#E8F5EE" stroke="#CBD6E2" stroke-width="1" />
-<text x="645.0" y="383.2" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#2E8B68" text-anchor="middle" >a[index+4]</text>
+<text x="645.0" y="383.2" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#2E8B68" text-anchor="middle" >a[base+4]</text>
 <rect x="711" y="232" width="88" height="48" rx="5" fill="#EAF1FF" stroke="#CBD6E2" stroke-width="1" />
 <text x="755.0" y="260.55" font-family="Consolas,'Liberation Mono',monospace" font-size="13" font-weight="600" fill="#2F6FED" text-anchor="middle" >Lane 5</text>
 <line x1="755" y1="280" x2="755" y2="342" stroke="#2F6FED" stroke-width="1.7" stroke-linecap="round" marker-end="url(#arrow-blue)"/>
 <rect x="700" y="350" width="110" height="58" rx="5" fill="#E8F5EE" stroke="#CBD6E2" stroke-width="1" />
-<text x="755.0" y="383.2" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#2E8B68" text-anchor="middle" >a[index+5]</text>
+<text x="755.0" y="383.2" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#2E8B68" text-anchor="middle" >a[base+5]</text>
 <rect x="821" y="232" width="88" height="48" rx="5" fill="#EAF1FF" stroke="#CBD6E2" stroke-width="1" />
 <text x="865.0" y="260.55" font-family="Consolas,'Liberation Mono',monospace" font-size="13" font-weight="600" fill="#2F6FED" text-anchor="middle" >Lane 6</text>
 <line x1="865" y1="280" x2="865" y2="342" stroke="#2F6FED" stroke-width="1.7" stroke-linecap="round" marker-end="url(#arrow-blue)"/>
 <rect x="810" y="350" width="110" height="58" rx="5" fill="#E8F5EE" stroke="#CBD6E2" stroke-width="1" />
-<text x="865.0" y="383.2" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#2E8B68" text-anchor="middle" >a[index+6]</text>
+<text x="865.0" y="383.2" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#2E8B68" text-anchor="middle" >a[base+6]</text>
 <rect x="931" y="232" width="88" height="48" rx="5" fill="#EAF1FF" stroke="#CBD6E2" stroke-width="1" />
 <text x="975.0" y="260.55" font-family="Consolas,'Liberation Mono',monospace" font-size="13" font-weight="600" fill="#2F6FED" text-anchor="middle" >Lane 7</text>
 <line x1="975" y1="280" x2="975" y2="342" stroke="#2F6FED" stroke-width="1.7" stroke-linecap="round" marker-end="url(#arrow-blue)"/>
 <rect x="920" y="350" width="110" height="58" rx="5" fill="#E8F5EE" stroke="#CBD6E2" stroke-width="1" />
-<text x="975.0" y="383.2" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#2E8B68" text-anchor="middle" >a[index+7]</text>
+<text x="975.0" y="383.2" font-family="Consolas,'Liberation Mono',monospace" font-size="12" font-weight="600" fill="#2E8B68" text-anchor="middle" >a[base+7]</text>
 <rect x="140" y="342" width="890" height="74" rx="10" fill="none" stroke="#2E8B68" stroke-width="2" />
 <text x="585" y="444" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC',Arial,sans-serif" font-size="16" font-weight="700" fill="#2E8B68" text-anchor="middle" >相邻 Lane → 连续下标 → 连续地址区间</text>
 <rect x="60" y="506" width="520" height="306" rx="14" fill="#FFFFFF" stroke="#CBD6E2" stroke-width="1.4" />
