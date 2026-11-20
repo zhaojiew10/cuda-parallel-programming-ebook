@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="780" viewBox="0 0 1200 780" role="img" aria-labelledby="title desc">
+  <title id="title">连续场景怎样变成有限数字</title>
+  <desc id="desc">连续灰度响应先经过空间采样，在离散坐标取得测量值，再经过幅值量化映射到有限灰度级别。图中使用2位量化，共4个级别。</desc>
+  <defs>
+    <linearGradient id="gray-gradient" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#17324D"/><stop offset="0.25" stop-color="#52677D"/><stop offset="0.5" stop-color="#8798AA"/><stop offset="0.75" stop-color="#C1CBD6"/><stop offset="1" stop-color="#F4F7FA"/>
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#2F6FED"/></marker>
+    <style>
+      text{font-family:"Noto Sans CJK SC","Microsoft YaHei","PingFang SC",Arial,sans-serif}.title{font-size:31px;font-weight:700;fill:#17324D}.subtitle{font-size:16px;fill:#5B6B7C}.panel-title{font-size:20px;font-weight:700;fill:#17324D;text-anchor:middle}.label{font-size:15px;fill:#5B6B7C}.small{font-size:13px;fill:#5B6B7C}.value{font-size:22px;font-weight:700;text-anchor:middle}.note-title{font-size:18px;font-weight:700;fill:#17324D}.note{font-size:15px;fill:#5B6B7C}.formula{font-family:Consolas,monospace;font-size:20px;font-weight:700;fill:#2F6FED;text-anchor:middle}
+    </style>
+  </defs>
+  <rect width="1200" height="780" fill="#F6F8FC"/><rect width="1200" height="7" fill="#2F6FED"/>
+  <text x="50" y="55" class="title">连续场景怎样变成有限数字</text>
+  <text x="50" y="88" class="subtitle">先确定在哪里测量，再把测量值映射到有限级别</text>
+
+  <rect x="45" y="130" width="300" height="440" rx="16" fill="#FFFFFF" stroke="#CBD6E2"/>
+  <text x="195" y="172" class="panel-title">① 连续响应</text>
+  <rect x="85" y="220" width="220" height="220" rx="8" fill="url(#gray-gradient)" stroke="#94A3B8"/>
+  <path d="M85 475 L305 475" stroke="#94A3B8" stroke-width="1.5"/>
+  <text x="195" y="505" class="label" text-anchor="middle">空间位置和亮度连续变化</text>
+  <text x="195" y="535" class="small" text-anchor="middle">现实中可近似看作连续信号</text>
+
+  <rect x="420" y="130" width="360" height="440" rx="16" fill="#FFFFFF" stroke="#CBD6E2"/>
+  <text x="600" y="172" class="panel-title">② 空间采样</text>
+  <rect x="475" y="220" width="220" height="220" rx="8" fill="url(#gray-gradient)" stroke="#94A3B8"/>
+  <g stroke="#F6F8FC" stroke-width="1" opacity="0.75">
+    <line x1="530" y1="220" x2="530" y2="440"/><line x1="585" y1="220" x2="585" y2="440"/><line x1="640" y1="220" x2="640" y2="440"/>
+    <line x1="475" y1="275" x2="695" y2="275"/><line x1="475" y1="330" x2="695" y2="330"/><line x1="475" y1="385" x2="695" y2="385"/>
+  </g>
+  <g fill="#2F6FED" stroke="#FFFFFF" stroke-width="2">
+    <circle cx="502.5" cy="247.5" r="7"/><circle cx="557.5" cy="247.5" r="7"/><circle cx="612.5" cy="247.5" r="7"/><circle cx="667.5" cy="247.5" r="7"/>
+    <circle cx="502.5" cy="302.5" r="7"/><circle cx="557.5" cy="302.5" r="7"/><circle cx="612.5" cy="302.5" r="7"/><circle cx="667.5" cy="302.5" r="7"/>
+    <circle cx="502.5" cy="357.5" r="7"/><circle cx="557.5" cy="357.5" r="7"/><circle cx="612.5" cy="357.5" r="7"/><circle cx="667.5" cy="357.5" r="7"/>
+    <circle cx="502.5" cy="412.5" r="7"/><circle cx="557.5" cy="412.5" r="7"/><circle cx="612.5" cy="412.5" r="7"/><circle cx="667.5" cy="412.5" r="7"/>
+  </g>
+  <text x="600" y="505" class="label" text-anchor="middle">只在离散坐标上取得样本</text>
+  <text x="600" y="535" class="small" text-anchor="middle">蓝点表示采样位置</text>
+
+  <rect x="855" y="130" width="300" height="440" rx="16" fill="#FFFFFF" stroke="#CBD6E2"/>
+  <text x="1005" y="172" class="panel-title">③ 幅值量化</text>
+  <g stroke="#FFFFFF" stroke-width="2">
+    <rect x="885" y="220" width="60" height="60" fill="#17324D"/><rect x="945" y="220" width="60" height="60" fill="#17324D"/><rect x="1005" y="220" width="60" height="60" fill="#52677D"/><rect x="1065" y="220" width="60" height="60" fill="#52677D"/>
+    <rect x="885" y="280" width="60" height="60" fill="#17324D"/><rect x="945" y="280" width="60" height="60" fill="#52677D"/><rect x="1005" y="280" width="60" height="60" fill="#52677D"/><rect x="1065" y="280" width="60" height="60" fill="#8798AA"/>
+    <rect x="885" y="340" width="60" height="60" fill="#52677D"/><rect x="945" y="340" width="60" height="60" fill="#52677D"/><rect x="1005" y="340" width="60" height="60" fill="#8798AA"/><rect x="1065" y="340" width="60" height="60" fill="#8798AA"/>
+    <rect x="885" y="400" width="60" height="60" fill="#52677D"/><rect x="945" y="400" width="60" height="60" fill="#8798AA"/><rect x="1005" y="400" width="60" height="60" fill="#8798AA"/><rect x="1065" y="400" width="60" height="60" fill="#C1CBD6"/>
+  </g>
+  <g class="value" fill="#FFFFFF"><text x="915" y="259">0</text><text x="975" y="259">0</text><text x="1035" y="259">1</text><text x="1095" y="259">1</text><text x="915" y="319">0</text><text x="975" y="319">1</text><text x="1035" y="319">1</text><text x="1095" y="319" fill="#17324D">2</text><text x="915" y="379">1</text><text x="975" y="379">1</text><text x="1035" y="379" fill="#17324D">2</text><text x="1095" y="379" fill="#17324D">2</text><text x="915" y="439">1</text><text x="975" y="439" fill="#17324D">2</text><text x="1035" y="439" fill="#17324D">2</text><text x="1095" y="439" fill="#17324D">3</text></g>
+  <text x="1005" y="505" class="label" text-anchor="middle">每个样本只能取 0、1、2、3</text>
+  <text x="1005" y="535" class="small" text-anchor="middle">例如 1.2 → 1，2.7 → 3</text>
+
+  <path d="M355 350 L408 350" stroke="#2F6FED" stroke-width="2.5" marker-end="url(#arrow)"/><path d="M790 350 L843 350" stroke="#2F6FED" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <rect x="45" y="600" width="535" height="90" rx="14" fill="#EAF1FF"/>
+  <text x="70" y="636" class="note-title">空间采样：在哪里测</text>
+  <text x="70" y="666" class="note">采样位置太稀，细纹理可能变成混叠图案。</text>
+  <rect x="620" y="600" width="535" height="90" rx="14" fill="#FFF3DE"/>
+  <text x="645" y="636" class="note-title">幅值量化：用多少级表示</text>
+  <text x="645" y="666" class="note">级别太少，平滑渐变可能出现色带。</text>
+  <text x="600" y="742" class="formula">L = 2^b；本图 b = 2，所以 L = 4</text>
+</svg>
