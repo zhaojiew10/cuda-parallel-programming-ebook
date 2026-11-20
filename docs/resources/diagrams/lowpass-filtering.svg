@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">低通滤波与重采样</title>
+  <desc id="desc">原始信号包含缓慢趋势和快速纹理。低通滤波保留缓慢趋势、削弱快速纹理，然后再采样，以降低缩小图像时的混叠风险，但也会损失部分真实细节。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#2F6FED"/></marker>
+    <style>text{font-family:"Noto Sans CJK SC","Microsoft YaHei","PingFang SC",Arial,sans-serif}.title{font-size:30px;font-weight:700;fill:#17324D}.subtitle{font-size:16px;fill:#5B6B7C}.panel-title{font-size:20px;font-weight:700;fill:#17324D}.label{font-size:15px;fill:#5B6B7C}.small{font-size:13px;fill:#5B6B7C}.note-title{font-size:18px;font-weight:700;fill:#17324D}.note{font-size:15px;fill:#5B6B7C}.blue{fill:#2F6FED}.orange{fill:#C4750E}</style>
+  </defs>
+  <rect width="1200" height="760" fill="#F6F8FC"/><rect width="1200" height="7" fill="#2F6FED"/>
+  <text x="50" y="55" class="title">低通滤波：先削弱快速变化，再重采样</text>
+  <text x="50" y="88" class="subtitle">蓝线表示缓慢趋势，橙色锯齿表示快速变化的细节</text>
+
+  <rect x="45" y="125" width="340" height="445" rx="16" fill="#FFFFFF" stroke="#CBD6E2"/>
+  <text x="70" y="168" class="panel-title">① 原始信号</text>
+  <rect x="75" y="205" width="280" height="250" rx="10" fill="#F6F8FC" stroke="#E1E7EF"/>
+  <path d="M90 420 L340 420" stroke="#CBD6E2"/><path d="M90 230 L90 420" stroke="#CBD6E2"/>
+  <path d="M85 350 C140 290 220 290 325 335" fill="none" stroke="#2F6FED" stroke-width="4" stroke-linecap="round"/>
+  <path d="M85 350 L95 340 L105 360 L115 340 L125 360 L135 340 L145 360 L155 340 L165 360 L175 340 L185 360 L195 340 L205 360 L215 340 L225 360 L235 340 L245 360 L255 340 L265 360 L275 340 L285 360 L295 340 L305 360 L315 340 L325 350" fill="none" stroke="#D98818" stroke-width="2.2" stroke-linejoin="round"/>
+  <text x="90" y="485" class="label blue">缓慢的大尺度变化</text><text x="90" y="515" class="label orange">叠加快速的小尺度纹理</text>
+  <text x="90" y="545" class="small">直接丢弃样本容易把纹理变成混叠</text>
+
+  <rect x="430" y="125" width="340" height="445" rx="16" fill="#FFFFFF" stroke="#CBD6E2"/>
+  <text x="455" y="168" class="panel-title">② 低通滤波</text>
+  <rect x="460" y="205" width="280" height="250" rx="10" fill="#F6F8FC" stroke="#E1E7EF"/>
+  <path d="M475 420 L725 420" stroke="#CBD6E2"/><path d="M475 230 L475 420" stroke="#CBD6E2"/>
+  <path d="M475 350 C530 290 610 290 715 335" fill="none" stroke="#2F6FED" stroke-width="4" stroke-linecap="round"/>
+  <path d="M475 350 L485 340 L495 360 L505 340 L515 360 L525 340 L535 360 L545 340 L555 360 L565 340 L575 360 L585 340 L595 360 L605 340 L615 360 L625 340 L635 360 L645 340 L655 360 L665 340 L675 360 L685 340 L695 360 L705 340 L715 350" fill="none" stroke="#D98818" stroke-width="1.5" stroke-dasharray="4 5" opacity="0.28"/>
+  <text x="475" y="485" class="label blue">保留缓慢趋势</text><text x="475" y="515" class="label">快速纹理被削弱（淡橙色虚线）</text>
+  <text x="475" y="545" class="small">边缘等真实细节也可能变模糊</text>
+
+  <rect x="815" y="125" width="340" height="445" rx="16" fill="#FFFFFF" stroke="#CBD6E2"/>
+  <text x="840" y="168" class="panel-title">③ 再进行重采样</text>
+  <rect x="845" y="205" width="280" height="250" rx="10" fill="#F6F8FC" stroke="#E1E7EF"/>
+  <path d="M860 420 L1110 420" stroke="#CBD6E2"/><path d="M860 230 L860 420" stroke="#CBD6E2"/>
+  <path d="M865 350 C920 290 1000 290 1105 335" fill="none" stroke="#2F6FED" stroke-width="4" stroke-linecap="round"/>
+  <g fill="#2F6FED" stroke="#FFFFFF" stroke-width="2"><circle cx="885" cy="338" r="8"/><circle cx="935" cy="316" r="8"/><circle cx="985" cy="310" r="8"/><circle cx="1035" cy="315" r="8"/><circle cx="1085" cy="328" r="8"/></g>
+  <g stroke="#2F6FED" stroke-width="1.2" opacity="0.45"><line x1="885" y1="346" x2="885" y2="420"/><line x1="935" y1="324" x2="935" y2="420"/><line x1="985" y1="318" x2="985" y2="420"/><line x1="1035" y1="323" x2="1035" y2="420"/><line x1="1085" y1="336" x2="1085" y2="420"/></g>
+  <text x="860" y="485" class="label blue">在更平滑的信号上取样</text><text x="860" y="515" class="label">减少错误宽条纹和混叠</text>
+  <text x="860" y="545" class="small">样本减少，但仍保留主要明暗趋势</text>
+
+  <path d="M390 340 L420 340" stroke="#2F6FED" stroke-width="2.5" marker-end="url(#arrow)"/><path d="M775 340 L805 340" stroke="#2F6FED" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <rect x="45" y="600" width="345" height="90" rx="14" fill="#E8F5EE"/><text x="70" y="637" class="note-title">保留什么</text><text x="70" y="667" class="note">缓慢变化的大尺度明暗。</text>
+  <rect x="427" y="600" width="345" height="90" rx="14" fill="#EAF1FF"/><text x="452" y="637" class="note-title">削弱什么</text><text x="452" y="667" class="note">短距离内快速变化的细节。</text>
+  <rect x="810" y="600" width="345" height="90" rx="14" fill="#FFF3DE"/><text x="835" y="637" class="note-title">需要付出的代价</text><text x="835" y="667" class="note">部分真实细节也会丢失。</text>
+  <text x="600" y="738" class="note" text-anchor="middle">低通不是简单地“越模糊越好”，而是为后续重采样控制信号变化速度。</text>
+</svg>
